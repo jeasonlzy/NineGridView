@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NineGridView">
+        <attr name="imageWidth1" format="dimension" />
+        <attr name="imageHeight1" format="dimension" />
+        <attr name="imageWidth2" format="dimension" />
+        <attr name="imageHeight2" format="dimension" />
+        <attr name="imageWidth3" format="dimension" />
+        <attr name="imageHeight3" format="dimension" />
+        <attr name="imageSpace" format="dimension" />
+    </declare-styleable>
+</resources>
