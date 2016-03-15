@@ -58,14 +58,14 @@ public class NineGridView2 extends LinearLayout {
         imageSpace = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, imageSpace, dm);
 
         //获取自定义属性
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.NineGridView);
-        imageWidth1 = a.getDimensionPixelSize(R.styleable.NineGridView_imageWidth1, imageWidth1);
-        imageHeight1 = a.getDimensionPixelSize(R.styleable.NineGridView_imageHeight1, imageHeight1);
-        imageWidth2 = a.getDimensionPixelSize(R.styleable.NineGridView_imageWidth2, imageWidth2);
-        imageHeight2 = a.getDimensionPixelSize(R.styleable.NineGridView_imageHeight2, imageHeight2);
-        imageWidth3 = a.getDimensionPixelSize(R.styleable.NineGridView_imageWidth3, imageWidth3);
-        imageHeight3 = a.getDimensionPixelSize(R.styleable.NineGridView_imageHeight3, imageHeight3);
-        imageSpace = a.getDimensionPixelSize(R.styleable.NineGridView_imageSpace, imageSpace);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.NineGridView1);
+        imageWidth1 = a.getDimensionPixelSize(R.styleable.NineGridView1_imageWidth1, imageWidth1);
+        imageHeight1 = a.getDimensionPixelSize(R.styleable.NineGridView1_imageHeight1, imageHeight1);
+        imageWidth2 = a.getDimensionPixelSize(R.styleable.NineGridView1_imageWidth2, imageWidth2);
+        imageHeight2 = a.getDimensionPixelSize(R.styleable.NineGridView1_imageHeight2, imageHeight2);
+        imageWidth3 = a.getDimensionPixelSize(R.styleable.NineGridView1_imageWidth3, imageWidth3);
+        imageHeight3 = a.getDimensionPixelSize(R.styleable.NineGridView1_imageHeight3, imageHeight3);
+        imageSpace = a.getDimensionPixelSize(R.styleable.NineGridView1_imageSpace, imageSpace);
         a.recycle();
 
         //垂直的线性布局
