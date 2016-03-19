@@ -10,39 +10,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.lzy.ninegridview.Constant;
-import com.lzy.ninegridview.DetailNews;
 import com.lzy.ninegridview.R;
+import com.lzy.ninegridview.adapter.DefaultNineGridViewAdapter;
+import com.lzy.ninegridview.bean.DetailNews;
+import com.lzy.ninegridview.bean.ImageDetail;
+import com.lzy.ninegridview.utils.Constant;
 import com.lzy.ui.NineGridView;
-import com.lzy.ui.NineGridViewAdapter;
 
 import java.util.List;
 
-public class GridStyleActivity extends AppCompatActivity {
+public class RecyclerStyleActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycler);
+        setContentView(R.layout.activity_recyclerview);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_post_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new PostAdapter(this, Constant.getData(), NineGridView.STYLE_GRID));
+        recyclerView.setAdapter(new PostAdapter(this, Constant.getData()));
     }
 
     public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
         private LayoutInflater mInflater;
         private List<DetailNews> mDataList;
-        private int mShowStyle;
 
-        public PostAdapter(Context context, List<DetailNews> datas, int showStyle) {
+        public PostAdapter(Context context, List<DetailNews> datas) {
             super();
             mDataList = datas;
             mInflater = LayoutInflater.from(context);
-            mShowStyle = showStyle;
         }
 
         @Override
@@ -57,11 +54,7 @@ public class GridStyleActivity extends AppCompatActivity {
 
         @Override
         public PostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            if (mShowStyle == NineGridView.STYLE_FILL) {
-                return new PostViewHolder(mInflater.inflate(R.layout.item_fill_style, parent, false));
-            } else {
-                return new PostViewHolder(mInflater.inflate(R.layout.item_grid_style, parent, false));
-            }
+            return new PostViewHolder(mInflater.inflate(R.layout.item_grid, parent, false));
         }
 
         public class PostViewHolder extends RecyclerView.ViewHolder {
@@ -75,18 +68,13 @@ public class GridStyleActivity extends AppCompatActivity {
             }
 
             public void bind(DetailNews item) {
-                nineGrid.setAdapter(new NineGridViewAdapter(item.getImageUrls()) {
-                    @Override
-                    protected void onDisplayImage(Context context, ImageView imageView, String s) {
-                        Glide.with(context).load(s).placeholder(R.mipmap.ic_default_image).into(imageView);
-                    }
-
-                    @Override
-                    protected void onImageItemClick(Context context, int index) {
-                        Toast.makeText(context, "图片条目：" + index, Toast.LENGTH_SHORT).show();
-                    }
-                });
                 title.setText(item.getTitle());
+                List<ImageDetail> imageDetails = item.getImageDetails();
+                nineGrid.setAdapter(new DefaultNineGridViewAdapter(imageDetails));
+                if (imageDetails.size() == 1) {
+                    nineGrid.setSingleImageScaleType(ImageView.ScaleType.FIT_START);
+                    nineGrid.setSingleImageRatio(imageDetails.get(0).getWidth() * 1.0f / imageDetails.get(0).getHeight());
+                }
             }
         }
     }

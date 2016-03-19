@@ -2,9 +2,9 @@ package com.lzy.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,23 +13,33 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NineGridView extends ViewGroup {
+public class NineGridView<T> extends ViewGroup {
 
-    public final static int STYLE_GRID = 0;     // 宫格布局
-    public final static int STYLE_FILL = 1;     // 全填充布局
+    public static final ImageView.ScaleType[] SCALE_TYPES = {//
+            ImageView.ScaleType.MATRIX,//
+            ImageView.ScaleType.FIT_XY,//
+            ImageView.ScaleType.FIT_START,//
+            ImageView.ScaleType.FIT_CENTER,//
+            ImageView.ScaleType.FIT_END,//
+            ImageView.ScaleType.CENTER,//
+            ImageView.ScaleType.CENTER_CROP,//
+            ImageView.ScaleType.CENTER_INSIDE};
 
-    private int maxImageSize = 9;               // 最大图片数
-    private int showStyle = STYLE_GRID;         // 显示风格
-    private int gap = 3;                        // 宫格间距
-    private int singleImgSize = -1;             // 单张图片时的尺寸
+    private int singleImageSize = 250;              // 单张图片时的最大大小,单位dp
+    private int singleImageScaleType = 6;           // 单张图片的缩放模式
+    private float singleImageRatio = 1.0f;          // 单张图片的宽高比(宽/高)
+    private int maxImageSize = 9;                   // 最大显示的图片数
+    private int gridSpacing = 3;                    // 宫格间距，单位dp
 
-    private int mColumnCount;    // 列数
-    private int mRowCount;       // 行数
-    private int gridSize;        // 宫格大小,即图片大小
+    private int columnCount;    // 列数
+    private int rowCount;       // 行数
+    private int gridWidth;      // 宫格宽度
+    private int gridHeight;     // 宫格高度
+    private ImageView.ScaleType mScaleType = SCALE_TYPES[singleImageScaleType];
 
-    private List<ImageView> imageViews = new ArrayList<>();
-    private List<String> imgUrls;
-    private NineGridViewAdapter mAdapter;
+    private List<ImageView> imageViews;
+    private List<T> mData;
+    private NineGridViewAdapter<T> mAdapter;
 
     public NineGridView(Context context) {
         this(context, null);
@@ -43,108 +53,108 @@ public class NineGridView extends ViewGroup {
         super(context, attrs, defStyleAttr);
 
         DisplayMetrics dm = context.getResources().getDisplayMetrics();
-        gap = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gap, dm);
+        gridSpacing = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, gridSpacing, dm);
+        singleImageSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, singleImageSize, dm);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.NineGridView);
-        gap = (int) a.getDimension(R.styleable.NineGridView_imgGap, gap);
-        singleImgSize = a.getDimensionPixelSize(R.styleable.NineGridView_singleImgSize, singleImgSize);
-        showStyle = a.getInt(R.styleable.NineGridView_showStyle, showStyle);
+        gridSpacing = (int) a.getDimension(R.styleable.NineGridView_gridSpacing, gridSpacing);
+        singleImageSize = a.getDimensionPixelSize(R.styleable.NineGridView_singleImageSize, singleImageSize);
+        singleImageRatio = a.getFloat(R.styleable.NineGridView_singleImageRatio, singleImageRatio);
+        singleImageScaleType = a.getInt(R.styleable.NineGridView_singleImageScaleType, singleImageScaleType);
+        mScaleType = SCALE_TYPES[singleImageScaleType];
         maxImageSize = a.getInt(R.styleable.NineGridView_maxSize, maxImageSize);
         a.recycle();
+
+        imageViews = new ArrayList<>();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int width = MeasureSpec.getSize(widthMeasureSpec);
-        int height;
+        int height = 0;
         int totalWidth = width - getPaddingLeft() - getPaddingRight();
-        if (imgUrls != null && imgUrls.size() > 0) {
-            if (imgUrls.size() == 1 && singleImgSize != -1) {
-                gridSize = singleImgSize > totalWidth ? totalWidth : singleImgSize;
+        if (mData != null && mData.size() > 0) {
+            if (mData.size() == 1) {
+                imageViews.get(0).setScaleType(mScaleType);
+                gridWidth = singleImageSize > totalWidth ? totalWidth : singleImageSize;
+                gridHeight = (int) (gridWidth / singleImageRatio);
+                //矫正图片显示区域大小，不允许超过最大显示范围
+                if (gridHeight > singleImageSize) {
+                    float ratio = singleImageSize * 1.0f / gridHeight;
+                    gridWidth = (int) (gridWidth * ratio);
+                    gridHeight = singleImageSize;
+                }
             } else {
                 imageViews.get(0).setScaleType(ImageView.ScaleType.CENTER_CROP);
-                gridSize = (totalWidth - gap * (mColumnCount - 1)) / mColumnCount;
+                gridWidth = gridHeight = (totalWidth - gridSpacing * (columnCount - 1)) / columnCount;
             }
-            height = gridSize * mRowCount + gap * (mRowCount - 1) + getPaddingTop() + getPaddingBottom();
-            setMeasuredDimension(width, height);
-        } else {
-            height = width;
-            setMeasuredDimension(width, height);
+            width = gridWidth * columnCount + gridSpacing * (columnCount - 1) + getPaddingLeft() + getPaddingRight();
+            height = gridHeight * rowCount + gridSpacing * (rowCount - 1) + getPaddingTop() + getPaddingBottom();
         }
+        setMeasuredDimension(width, height);
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        layoutChildrenView();
-    }
-
-    /**
-     * 布局 ImageView
-     */
-    private void layoutChildrenView() {
-        if (imgUrls == null) {
-            return;
-        }
-        int childrenCount = imgUrls.size();
+        if (mData == null) return;
+        int childrenCount = mData.size();
         for (int i = 0; i < childrenCount; i++) {
             ImageView childrenView = (ImageView) getChildAt(i);
             if (mAdapter != null) {
-                mAdapter.onDisplayImage(getContext(), childrenView, imgUrls.get(i));
+                mAdapter.onDisplayImage(getContext(), childrenView, mData.get(i));
             }
-            int rowNum = i / mColumnCount;
-            int columnNum = i % mColumnCount;
-            int left = (gridSize + gap) * columnNum + getPaddingLeft();
-            int top = (gridSize + gap) * rowNum + getPaddingTop();
-            int right = left + gridSize;
-            int bottom = top + gridSize;
-
+            int rowNum = i / columnCount;
+            int columnNum = i % columnCount;
+            int left = (gridWidth + gridSpacing) * columnNum + getPaddingLeft();
+            int top = (gridHeight + gridSpacing) * rowNum + getPaddingTop();
+            int right = left + gridWidth;
+            int bottom = top + gridHeight;
             childrenView.layout(left, top, right, bottom);
         }
     }
 
-    /** 设置图片数据 */
-    private void setImagesData(List lists) {
-        if (lists == null || lists.isEmpty()) {
-            this.setVisibility(GONE);
+    /** 设置适配器 */
+    public void setAdapter(@NonNull NineGridViewAdapter adapter) {
+        mAdapter = adapter;
+        List data = adapter.getData();
+
+        if (data == null || data.isEmpty()) {
+            setVisibility(GONE);
             return;
         } else {
-            this.setVisibility(VISIBLE);
+            setVisibility(VISIBLE);
         }
 
-        if (maxImageSize > 0 && lists.size() > maxImageSize) {
-            lists = lists.subList(0, maxImageSize);
+        if (maxImageSize > 0 && data.size() > maxImageSize) {
+            data = data.subList(0, maxImageSize);
         }
 
-        int[] gridParam = calculateGridParam(lists.size(), showStyle);
-        mRowCount = gridParam[0];
-        mColumnCount = gridParam[1];
-        if (imgUrls == null) {
-            int i = 0;
-            while (i < lists.size()) {
+        //默认是3列显示，行数根据图片的数量决定
+        rowCount = data.size() / 3 + (data.size() % 3 == 0 ? 0 : 1);
+        columnCount = 3;
+
+        //保证View的复用，避免重复创建
+        if (mData == null) {
+            for (int i = 0; i < data.size(); i++) {
                 ImageView iv = getImageView(i);
-                if (iv == null) {
-                    return;
-                }
+                if (iv == null) return;
                 addView(iv, generateDefaultLayoutParams());
-                i++;
             }
         } else {
-            int oldViewCount = imgUrls.size();
-            int newViewCount = lists.size();
+            int oldViewCount = mData.size();
+            int newViewCount = data.size();
             if (oldViewCount > newViewCount) {
                 removeViews(newViewCount, oldViewCount - newViewCount);
             } else if (oldViewCount < newViewCount) {
                 for (int i = oldViewCount; i < newViewCount; i++) {
                     ImageView iv = getImageView(i);
-                    if (iv == null) {
-                        return;
-                    }
+                    if (iv == null) return;
                     addView(iv, generateDefaultLayoutParams());
                 }
             }
         }
-        imgUrls = lists;
+        mData = data;
         requestLayout();
     }
 
@@ -153,66 +163,48 @@ public class NineGridView extends ViewGroup {
         if (position < imageViews.size()) {
             return imageViews.get(position);
         } else {
-            if (mAdapter != null) {
-                ImageView imageView = mAdapter.generateImageView(getContext());
-                imageViews.add(imageView);
-                imageView.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mAdapter.onImageItemClick(getContext(), position);
-                    }
-                });
-                return imageView;
-            } else {
-                Log.e("NineGirdImageView", "Your must set a NineGridViewAdapter for NineGirdImageView");
-                return null;
-            }
-        }
-    }
-
-    /** 设置 宫格参数 ridParam[0] 宫格行数 gridParam[1] 宫格列数 */
-    protected static int[] calculateGridParam(int imagesSize, int showStyle) {
-        int[] gridParam = new int[2];
-        switch (showStyle) {
-            case STYLE_FILL:
-                if (imagesSize < 3) {
-                    gridParam[0] = 1;
-                    gridParam[1] = imagesSize;
-                } else if (imagesSize <= 4) {
-                    gridParam[0] = 2;
-                    gridParam[1] = 2;
-                } else {
-                    gridParam[0] = imagesSize / 3 + (imagesSize % 3 == 0 ? 0 : 1);
-                    gridParam[1] = 3;
+            ImageView imageView = mAdapter.generateImageView(getContext());
+            imageViews.add(imageView);
+            imageView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mAdapter.onImageItemClick(getContext(), position, mAdapter.getData());
                 }
-                break;
-            default:
-            case STYLE_GRID:
-                gridParam[0] = imagesSize / 3 + (imagesSize % 3 == 0 ? 0 : 1);
-                gridParam[1] = 3;
+            });
+            return imageView;
         }
-        return gridParam;
-    }
-
-    /** 设置适配器 */
-    public void setAdapter(NineGridViewAdapter adapter) {
-        mAdapter = adapter;
-        setImagesData(adapter.getUrls());
     }
 
     /** 设置宫格间距 */
-    public void setGap(int gap) {
-        this.gap = gap;
+    public void setGridSpacing(int spacing) {
+        gridSpacing = spacing;
     }
 
-    /** 设置显示风格 */
-    public void setShowStyle(int showStyle) {
-        this.showStyle = showStyle;
+    /** 设置只有一张图片时的宽 */
+    public void setSingleImageSize(int maxImageSize) {
+        singleImageSize = maxImageSize;
     }
 
-    /** 设置只有一张图片时的尺寸大小 */
-    public void setSingleImgSize(int singleImgSize) {
-        this.singleImgSize = singleImgSize;
+    /** 设置只有一张图片时的宽高比 */
+    public void setSingleImageRatio(float ratio) {
+        singleImageRatio = ratio;
+    }
+
+    /** 设置只有一张图片时的缩放模式 */
+    public void setSingleImageScaleType(int scaleType) {
+        singleImageScaleType = scaleType;
+        mScaleType = SCALE_TYPES[singleImageScaleType];
+    }
+
+    /** 设置只有一张图片时的缩放模式 */
+    public void setSingleImageScaleType(ImageView.ScaleType scaleType) {
+        mScaleType = scaleType;
+        for (int i = 0; i < SCALE_TYPES.length; i++) {
+            if (SCALE_TYPES[i] == scaleType) {
+                singleImageScaleType = i;
+                break;
+            }
+        }
     }
 
     /** 设置最大图片数 */

@@ -1,6 +1,5 @@
 package com.lzy.ninegridview.ui;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,23 +8,22 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.lzy.ninegridview.Constant;
-import com.lzy.ninegridview.DetailNews;
 import com.lzy.ninegridview.R;
+import com.lzy.ninegridview.adapter.DefaultNineGridViewAdapter;
+import com.lzy.ninegridview.bean.DetailNews;
+import com.lzy.ninegridview.bean.ImageDetail;
+import com.lzy.ninegridview.utils.Constant;
 import com.lzy.ui.NineGridView;
-import com.lzy.ui.NineGridViewAdapter;
 
 import java.util.List;
 
-public class ListImageActivity extends AppCompatActivity {
+public class ListStyleActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_image);
+        setContentView(R.layout.activity_listview);
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(new MyAdapter(Constant.getData()));
     }
@@ -56,23 +54,17 @@ public class ListImageActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = View.inflate(getApplicationContext(), R.layout.item_grid_style, null);
+                convertView = View.inflate(getApplicationContext(), R.layout.item_grid, null);
             }
             ViewHolder holder = ViewHolder.getHolder(convertView);
             DetailNews item = getItem(position);
             holder.title.setText(item.getTitle());
-            holder.nineGrid.setAdapter(new NineGridViewAdapter(item.getImageUrls()) {
-
-                @Override
-                protected void onDisplayImage(Context context, ImageView imageView, String url) {
-                    Glide.with(context).load(url).placeholder(R.mipmap.ic_default_image).into(imageView);
-                }
-
-                @Override
-                protected void onImageItemClick(Context context, int index) {
-                    Toast.makeText(getApplicationContext(), "照片:" + index, Toast.LENGTH_SHORT).show();
-                }
-            });
+            List<ImageDetail> imageDetails = item.getImageDetails();
+            holder.nineGrid.setAdapter(new DefaultNineGridViewAdapter(imageDetails));
+            if (imageDetails.size() == 1) {
+                holder.nineGrid.setSingleImageScaleType(ImageView.ScaleType.FIT_START);
+                holder.nineGrid.setSingleImageRatio(imageDetails.get(0).getWidth() * 1.0f / imageDetails.get(0).getHeight());
+            }
             return convertView;
         }
     }

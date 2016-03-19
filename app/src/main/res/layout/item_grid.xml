@@ -22,8 +22,9 @@
         android:id="@+id/nineGrid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:imgGap="3dp"
-        app:maxSize="-1"
-        app:showStyle="grid"
-        app:singleImgSize="500dp"/>
+        app:gridSpacing="3dp"
+        app:maxSize="9"
+        app:singleImageRatio="1"
+        app:singleImageScaleType="fit_start"
+        app:singleImageSize="250dp"/>
 </LinearLayout>

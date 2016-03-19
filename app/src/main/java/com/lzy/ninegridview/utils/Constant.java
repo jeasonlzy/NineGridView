@@ -1,4 +1,7 @@
-package com.lzy.ninegridview;
+package com.lzy.ninegridview.utils;
+
+import com.lzy.ninegridview.bean.DetailNews;
+import com.lzy.ninegridview.bean.ImageDetail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,37 +28,44 @@ public class Constant {
             DetailNews detailNews = new DetailNews();
             detailNews.setTitle(TITLES[RANDOM.nextInt(TOTAL)]);
             int imageCount = RANDOM.nextInt(9);
-            ArrayList<String> urls = new ArrayList<>();
-            for (int j = 0; j <= imageCount; j++) {
-                urls.add(URLS[RANDOM.nextInt(TOTAL)]);
+            ArrayList<ImageDetail> imageDetails = new ArrayList<>();
+            int nextInt = RANDOM.nextInt(5);
+            if (nextInt == 0) {
+
+            } else if (nextInt == 1) {
+                imageDetails.add(URLS[RANDOM.nextInt(TOTAL)]);
+            } else {
+                for (int j = 0; j <= imageCount; j++) {
+                    imageDetails.add(URLS[RANDOM.nextInt(TOTAL)]);
+                }
             }
-            detailNews.setImageUrls(urls);
+            detailNews.setImageDetails(imageDetails);
             list.add(detailNews);
         }
         return list;
     }
 
-    private static final String[] URLS = new String[]{//
-            "http://img1.3lian.com/2015/w6/60/d/89.jpg",//
-            "http://img1.3lian.com/2015/w6/60/d/3.jpg",//
-            "http://img1.3lian.com/2015/w6/60/d/84.jpg",//
-            "http://img1.3lian.com/2015/w7/87/d/27.jpg",//
-            "http://img1.3lian.com/2015/w6/60/d/21.jpg",//
-            "http://img1.3lian.com/2015/w6/60/d/9.jpg",//
-            "http://img2.3lian.com/2014/f5/36/d/9.jpg",//
-            "http://img2.3lian.com/2014/c7/12/d/62.jpg",//
-            "http://img2.3lian.com/2014/f4/171/d/69.jpg",//
-            "http://img2.3lian.com/2014/f5/36/d/11.jpg",//
-            "http://img2.3lian.com/2014/f4/143/d/105.jpg",//
-            "http://img2.3lian.com/2014/f4/143/d/105.jpg",//
-            "http://img15.3lian.com/2015/f2/147/d/43.jpg",//
-            "http://img15.3lian.com/2015/f2/147/d/31.jpg",//
-            "http://img15.3lian.com/2015/f2/147/d/39.jpg",//
-            "http://img15.3lian.com/2015/f2/147/d/33.jpg",//
-            "http://img15.3lian.com/2015/f2/170/d/22.jpg",//
-            "http://img15.3lian.com/2015/f2/147/d/37.jpg",//
-            "http://img15.3lian.com/2015/f2/147/d/37.jpg",//
-            "http://img15.3lian.com/2015/f2/147/d/23.jpg"};
+    private static final ImageDetail[] URLS = new ImageDetail[]{//
+            new ImageDetail(900, 573, "http://c.hiphotos.baidu.com/image/pic/item/18d8bc3eb13533fa48f84527aad3fd1f41345b69.jpg"),//
+            new ImageDetail(639, 960, "http://d.hiphotos.baidu.com/image/pic/item/562c11dfa9ec8a13f075f10cf303918fa1ecc0eb.jpg"),//
+            new ImageDetail(640, 960, "http://h.hiphotos.baidu.com/image/pic/item/dc54564e9258d1093cf78e5cd558ccbf6d814dc3.jpg"),//
+            new ImageDetail(640, 960, "http://a.hiphotos.baidu.com/image/pic/item/279759ee3d6d55fb924d52c869224f4a21a4dd50.jpg"),//
+            new ImageDetail(640, 960, "http://d.hiphotos.baidu.com/image/pic/item/f3d3572c11dfa9ec994471f966d0f703908fc1f1.jpg"),//
+            new ImageDetail(500, 750, "http://c.hiphotos.baidu.com/image/pic/item/09fa513d269759ee673682cfb0fb43166d22df54.jpg"),//
+            new ImageDetail(750, 500, "http://a.hiphotos.baidu.com/image/pic/item/aa18972bd40735faeef4a3bd9c510fb30f2408a9.jpg"),//
+            new ImageDetail(640, 413, "http://g.hiphotos.baidu.com/image/pic/item/4d086e061d950a7bcca92acf08d162d9f2d3c919.jpg"),//
+            new ImageDetail(900, 569, "http://f.hiphotos.baidu.com/image/pic/item/00e93901213fb80e0ee553d034d12f2eb9389484.jpg"),//
+            new ImageDetail(610, 801, "http://d.hiphotos.baidu.com/image/pic/item/55e736d12f2eb938e0ae49f5d7628535e4dd6ff1.jpg"),//
+            new ImageDetail(533, 799, "http://e.hiphotos.baidu.com/image/pic/item/83025aafa40f4bfb27bfbf2b014f78f0f7361865.jpg"),//
+            new ImageDetail(522, 787, "http://e.hiphotos.baidu.com/image/pic/item/574e9258d109b3de08cdc16fcebf6c81800a4c42.jpg"),//
+            new ImageDetail(880, 580, "http://e.hiphotos.baidu.com/image/pic/item/622762d0f703918f94eaf0ce533d269759eec4ff.jpg"),//
+            new ImageDetail(914, 567, "http://f.hiphotos.baidu.com/image/pic/item/c2cec3fdfc039245831fa7498294a4c27c1e25c9.jpg"),//
+            new ImageDetail(472, 700, "http://b.hiphotos.baidu.com/image/pic/item/b64543a98226cffc47102fb2bb014a90f603eafc.jpg"),//
+            new ImageDetail(850, 533, "http://a.hiphotos.baidu.com/image/pic/item/4d086e061d950a7b6ad3cc9508d162d9f3d3c9f9.jpg"),//
+            new ImageDetail(750, 499, "http://f.hiphotos.baidu.com/image/pic/item/cb8065380cd791234275326baf345982b2b7801c.jpg"),//
+            new ImageDetail(499, 750, "http://e.hiphotos.baidu.com/image/pic/item/5882b2b7d0a20cf4ed0558c074094b36acaf991c.jpg"),//
+            new ImageDetail(612, 911, "http://a.hiphotos.baidu.com/image/pic/item/8b13632762d0f703c9a773c30afa513d2697c59c.jpg"),//
+            new ImageDetail(613, 842, "http://e.hiphotos.baidu.com/image/pic/item/9358d109b3de9c82cde6458f6e81800a19d8432a.jpg")};
 
     private static final String[] TITLES = new String[]{//
             "当我苏醒，已经事隔千年。万丈红尘，冉冉浮生，诸多人事几番断。如果你不能爱我，就不该打扰我的平静。",//

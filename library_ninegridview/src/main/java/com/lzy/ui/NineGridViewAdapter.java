@@ -5,12 +5,12 @@ import android.widget.ImageView;
 
 import java.util.List;
 
-public abstract class NineGridViewAdapter {
+public abstract class NineGridViewAdapter<T> {
 
-    private List<String> mUrls;
+    private List<T> mData;
 
-    public NineGridViewAdapter(List<String> urls) {
-        mUrls = urls;
+    public NineGridViewAdapter(List<T> list) {
+        mData = list;
     }
 
     /**
@@ -18,17 +18,18 @@ public abstract class NineGridViewAdapter {
      *
      * @param context   上下文
      * @param imageView 需要展示图片的ImageView
-     * @param url       图片的地址
+     * @param t         携带有图片地址的数据
      */
-    protected abstract void onDisplayImage(Context context, ImageView imageView, String url);
+    protected abstract void onDisplayImage(Context context, ImageView imageView, T t);
 
     /**
      * 如果要实现图片点击的逻辑，重写此方法即可
      *
      * @param context 上下文
      * @param index   当前点击图片的的索引
+     * @param list    携带有图片地址的数据集合
      */
-    protected void onImageItemClick(Context context, int index) {
+    protected void onImageItemClick(Context context, int index, List<T> list) {
     }
 
     /**
@@ -44,11 +45,11 @@ public abstract class NineGridViewAdapter {
         return imageView;
     }
 
-    public List<String> getUrls() {
-        return mUrls;
+    public List<T> getData() {
+        return mData;
     }
 
-    public void setUrls(List<String> mUrls) {
-        this.mUrls = mUrls;
+    public void setData(List<T> data) {
+        mData = data;
     }
 }

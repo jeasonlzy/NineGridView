@@ -11,12 +11,19 @@
     </declare-styleable>
 
     <declare-styleable name="NineGridView">
-        <attr name="singleImgSize" format="dimension"/>
-        <attr name="imgGap" format="dimension"/>
-        <attr name="maxSize" format="integer"/>
-        <attr name="showStyle" format="enum">
-            <enum name="grid" value="0"/>
-            <enum name="fill" value="1"/>
+        <attr name="singleImageSize" format="dimension"/>
+        <attr name="singleImageRatio" format="float"/>
+        <attr name="singleImageScaleType" format="enum">
+            <enum name="matrix" value="0"/>
+            <enum name="fit_xy" value="1"/>
+            <enum name="fit_start" value="2"/>
+            <enum name="fit_center" value="3"/>
+            <enum name="fit_end" value="4"/>
+            <enum name="center" value="5"/>
+            <enum name="center_crop" value="6"/>
+            <enum name="center_inside" value="7"/>
         </attr>
+        <attr name="gridSpacing" format="dimension"/>
+        <attr name="maxSize" format="integer"/>
     </declare-styleable>
 </resources>

@@ -1,4 +1,4 @@
-package com.lzy.ninegridview;
+package com.lzy.ninegridview.bean;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class DetailNews {
     private String title;
-    private List<String> imageUrls;
+    private List<ImageDetail> imageDetails;
 
     public String getTitle() {
         return title;
@@ -23,11 +23,11 @@ public class DetailNews {
         this.title = title;
     }
 
-    public List<String> getImageUrls() {
-        return imageUrls;
+    public List<ImageDetail> getImageDetails() {
+        return imageDetails;
     }
 
-    public void setImageUrls(List<String> imageUrls) {
-        this.imageUrls = imageUrls;
+    public void setImageDetails(List<ImageDetail> imageDetails) {
+        this.imageDetails = imageDetails;
     }
 }

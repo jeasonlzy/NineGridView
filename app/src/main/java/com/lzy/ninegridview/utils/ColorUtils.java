@@ -1,4 +1,5 @@
-package com.lzy.ninegridview;/**
+package com.lzy.ninegridview.utils;
+/**
  * ================================================
  * 作    者：廖子尧
  * 版    本：1.0
