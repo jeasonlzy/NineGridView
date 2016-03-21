@@ -24,7 +24,7 @@
     </tr>
     <tr>
       <td align="center">singleImageRatio</td>
-      <td align="center">只显示一张图片时图片宽高比/td>
+      <td align="center">只显示一张图片时图片宽高比</td>
     </tr>
     <tr>
       <td align="center">singleImageScaleType</td>

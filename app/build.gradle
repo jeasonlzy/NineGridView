@@ -22,7 +22,9 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.github.chrisbanes.photoview:library:1.2.4'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'in.srain.cube:ultra-ptr:1.0.11'
     compile project(':library_ninegridview')
+    compile project(':library_okhttputils')
+    compile project(':library_okhttputils')
 }

@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NineGridView<T> extends ViewGroup {
+public class NineGridView extends ViewGroup {
 
     public static final ImageView.ScaleType[] SCALE_TYPES = {//
             ImageView.ScaleType.MATRIX,//
@@ -38,8 +38,8 @@ public class NineGridView<T> extends ViewGroup {
     private ImageView.ScaleType mScaleType = SCALE_TYPES[singleImageScaleType];
 
     private List<ImageView> imageViews;
-    private List<T> mData;
-    private NineGridViewAdapter<T> mAdapter;
+    private List<ImageInfo> mImageInfo;
+    private NineGridViewAdapter mAdapter;
 
     public NineGridView(Context context) {
         this(context, null);
@@ -74,8 +74,8 @@ public class NineGridView<T> extends ViewGroup {
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = 0;
         int totalWidth = width - getPaddingLeft() - getPaddingRight();
-        if (mData != null && mData.size() > 0) {
-            if (mData.size() == 1) {
+        if (mImageInfo != null && mImageInfo.size() > 0) {
+            if (mImageInfo.size() == 1) {
                 imageViews.get(0).setScaleType(mScaleType);
                 gridWidth = singleImageSize > totalWidth ? totalWidth : singleImageSize;
                 gridHeight = (int) (gridWidth / singleImageRatio);
@@ -97,12 +97,12 @@ public class NineGridView<T> extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        if (mData == null) return;
-        int childrenCount = mData.size();
+        if (mImageInfo == null) return;
+        int childrenCount = mImageInfo.size();
         for (int i = 0; i < childrenCount; i++) {
             ImageView childrenView = (ImageView) getChildAt(i);
             if (mAdapter != null) {
-                mAdapter.onDisplayImage(getContext(), childrenView, mData.get(i));
+                mAdapter.onDisplayImage(getContext(), childrenView, mImageInfo.get(i));
             }
             int rowNum = i / columnCount;
             int columnNum = i % columnCount;
@@ -117,33 +117,33 @@ public class NineGridView<T> extends ViewGroup {
     /** 设置适配器 */
     public void setAdapter(@NonNull NineGridViewAdapter adapter) {
         mAdapter = adapter;
-        List data = adapter.getData();
+        List<ImageInfo> imageInfo = adapter.getImageInfo();
 
-        if (data == null || data.isEmpty()) {
+        if (imageInfo == null || imageInfo.isEmpty()) {
             setVisibility(GONE);
             return;
         } else {
             setVisibility(VISIBLE);
         }
 
-        if (maxImageSize > 0 && data.size() > maxImageSize) {
-            data = data.subList(0, maxImageSize);
+        if (maxImageSize > 0 && imageInfo.size() > maxImageSize) {
+            imageInfo = imageInfo.subList(0, maxImageSize);
         }
 
         //默认是3列显示，行数根据图片的数量决定
-        rowCount = data.size() / 3 + (data.size() % 3 == 0 ? 0 : 1);
+        rowCount = imageInfo.size() / 3 + (imageInfo.size() % 3 == 0 ? 0 : 1);
         columnCount = 3;
 
         //保证View的复用，避免重复创建
-        if (mData == null) {
-            for (int i = 0; i < data.size(); i++) {
+        if (mImageInfo == null) {
+            for (int i = 0; i < imageInfo.size(); i++) {
                 ImageView iv = getImageView(i);
                 if (iv == null) return;
                 addView(iv, generateDefaultLayoutParams());
             }
         } else {
-            int oldViewCount = mData.size();
-            int newViewCount = data.size();
+            int oldViewCount = mImageInfo.size();
+            int newViewCount = imageInfo.size();
             if (oldViewCount > newViewCount) {
                 removeViews(newViewCount, oldViewCount - newViewCount);
             } else if (oldViewCount < newViewCount) {
@@ -154,25 +154,26 @@ public class NineGridView<T> extends ViewGroup {
                 }
             }
         }
-        mData = data;
+        mImageInfo = imageInfo;
         requestLayout();
     }
 
     /** 获得 ImageView 保证了 ImageView 的重用 */
     private ImageView getImageView(final int position) {
+        ImageView imageView;
         if (position < imageViews.size()) {
-            return imageViews.get(position);
+            imageView = imageViews.get(position);
         } else {
-            ImageView imageView = mAdapter.generateImageView(getContext());
-            imageViews.add(imageView);
+            imageView = mAdapter.generateImageView(getContext());
             imageView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mAdapter.onImageItemClick(getContext(), position, mAdapter.getData());
+                    mAdapter.onImageItemClick(getContext(), NineGridView.this, position, mAdapter.getImageInfo());
                 }
             });
-            return imageView;
+            imageViews.add(imageView);
         }
+        return imageView;
     }
 
     /** 设置宫格间距 */
@@ -210,5 +211,9 @@ public class NineGridView<T> extends ViewGroup {
     /** 设置最大图片数 */
     public void setMaxSize(int maxSize) {
         maxImageSize = maxSize;
+    }
+
+    public int getMaxSize() {
+        return maxImageSize;
     }
 }

@@ -1,25 +1,20 @@
 package com.lzy.ninegridview.bean;
 
+import java.io.Serializable;
+
 /**
  * ================================================
  * 作    者：廖子尧
  * 版    本：1.0
- * 创建日期：2016/3/19
+ * 创建日期：2016/3/20
  * 描    述：
  * 修订历史：
  * ================================================
  */
-public class ImageDetail {
-
+public class NewsImage implements Serializable {
     private int width;
     private int height;
     private String url;
-
-    public ImageDetail(int width, int height, String url) {
-        this.width = width;
-        this.height = height;
-        this.url = url;
-    }
 
     public int getWidth() {
         return width;
@@ -43,5 +38,14 @@ public class ImageDetail {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    @Override
+    public String toString() {
+        return "NewsImage{" +
+                "width=" + width +
+                ", height=" + height +
+                ", url='" + url + '\'' +
+                '}';
     }
 }

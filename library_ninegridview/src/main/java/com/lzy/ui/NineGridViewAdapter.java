@@ -3,14 +3,17 @@ package com.lzy.ui;
 import android.content.Context;
 import android.widget.ImageView;
 
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class NineGridViewAdapter<T> {
+public abstract class NineGridViewAdapter implements Serializable {
 
-    private List<T> mData;
+    protected Context context;
+    private List<ImageInfo> imageInfo;
 
-    public NineGridViewAdapter(List<T> list) {
-        mData = list;
+    public NineGridViewAdapter(Context context, List<ImageInfo> imageInfo) {
+        this.context = context;
+        this.imageInfo = imageInfo;
     }
 
     /**
@@ -18,18 +21,19 @@ public abstract class NineGridViewAdapter<T> {
      *
      * @param context   上下文
      * @param imageView 需要展示图片的ImageView
-     * @param t         携带有图片地址的数据
+     * @param imageInfo 图片地址
      */
-    protected abstract void onDisplayImage(Context context, ImageView imageView, T t);
+    public abstract void onDisplayImage(Context context, ImageView imageView, ImageInfo imageInfo);
 
     /**
      * 如果要实现图片点击的逻辑，重写此方法即可
      *
-     * @param context 上下文
-     * @param index   当前点击图片的的索引
-     * @param list    携带有图片地址的数据集合
+     * @param context      上下文
+     * @param nineGridView 九宫格控件
+     * @param index        当前点击图片的的索引
+     * @param imageInfo    图片地址的数据集合
      */
-    protected void onImageItemClick(Context context, int index, List<T> list) {
+    protected void onImageItemClick(Context context, NineGridView nineGridView, int index, List<ImageInfo> imageInfo) {
     }
 
     /**
@@ -45,11 +49,11 @@ public abstract class NineGridViewAdapter<T> {
         return imageView;
     }
 
-    public List<T> getData() {
-        return mData;
+    public List<ImageInfo> getImageInfo() {
+        return imageInfo;
     }
 
-    public void setData(List<T> data) {
-        mData = data;
+    public void setImageInfo(List<ImageInfo> imageInfo) {
+        this.imageInfo = imageInfo;
     }
 }
