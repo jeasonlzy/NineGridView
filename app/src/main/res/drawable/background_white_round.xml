@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 圆角背景 白色 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:padding="10dp"
+       android:shape="rectangle">
+
+    <solid android:color="#ffffffff"/>
+
+    <corners
+        android:bottomLeftRadius="3dp"
+        android:bottomRightRadius="3dp"
+        android:topLeftRadius="3dp"
+        android:topRightRadius="3dp"/>
+
+    <!-- 描边 -->
+    <stroke
+        android:width="1dp"
+        android:color="#cbcaca"
+        android:dashGap="0dp"
+        android:dashWidth="1dp"/>
+
+</shape>

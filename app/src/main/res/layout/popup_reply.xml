@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="150dp"
+              android:layout_height="wrap_content"
+              android:background="#000"
+              android:gravity="center"
+              android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/favour"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableLeft="@mipmap/event_favour"
+        android:drawablePadding="10dp"
+        android:gravity="center"
+        android:padding="10dip"
+        android:text="赞"
+        android:textColor="#FFF"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/comment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableLeft="@mipmap/event_comment"
+        android:drawablePadding="10dp"
+        android:gravity="center"
+        android:padding="10dip"
+        android:text="评论"
+        android:textColor="#FFF"
+        android:textSize="14sp"/>
+
+</LinearLayout>

@@ -8,8 +8,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.lzy.ninegridview.ui.EvaluationActivity;
-import com.lzy.ninegridview.ui.NewsActivity;
+import com.lzy.ninegridview.model.evaluation.EvaluationActivity;
+import com.lzy.ninegridview.model.news.NewsActivity;
 
 import java.util.ArrayList;
 

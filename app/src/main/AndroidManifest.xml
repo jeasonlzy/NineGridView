@@ -16,9 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.NewsActivity"/>
-        <activity android:name=".ui.NewsLinkActivity"/>
-        <activity android:name=".ui.EvaluationActivity"/>
+        <activity android:name=".model.news.NewsActivity"/>
+        <activity android:name=".model.news.NewsLinkActivity"/>
+        <activity android:name=".model.evaluation.EvaluationActivity"/>
 
     </application>
 
