@@ -4,8 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/NineGridView.iml" filepath="$PROJECT_DIR$/NineGridView.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library_ninegridview/library_ninegridview.iml" filepath="$PROJECT_DIR$/library_ninegridview/library_ninegridview.iml" />
       <module fileurl="file://$PROJECT_DIR$/library_okhttputils/library_okhttputils.iml" filepath="$PROJECT_DIR$/library_okhttputils/library_okhttputils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ninegridview/ninegridview.iml" filepath="$PROJECT_DIR$/ninegridview/ninegridview.iml" />
     </modules>
   </component>
 </project>

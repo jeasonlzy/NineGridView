@@ -5,8 +5,8 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 23
+        minSdkVersion 8
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
@@ -24,7 +24,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'in.srain.cube:ultra-ptr:1.0.11'
-    compile project(':library_ninegridview')
-    compile project(':library_okhttputils')
+    compile project(':ninegridview')
     compile project(':library_okhttputils')
 }

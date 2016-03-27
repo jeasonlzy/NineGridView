@@ -25,9 +25,9 @@ import com.lzy.ninegridview.model.evaluation.bean.EvaluationItem;
 import com.lzy.ninegridview.model.evaluation.bean.EvaluationPic;
 import com.lzy.ninegridview.view.CircleImageView;
 import com.lzy.ninegridview.view.GlobalDialog;
-import com.lzy.ui.ImageInfo;
-import com.lzy.ui.NineGridView;
-import com.lzy.ui.preview.ClickNineGridViewAdapter;
+import com.lzy.widget.ImageInfo;
+import com.lzy.widget.NineGridView;
+import com.lzy.widget.preview.ClickNineGridViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,8 +115,8 @@ public class EvaluationAdapter extends BaseAdapter {
 
     private void setImage(Context context, ImageView imageView, String url) {
         Glide.with(context).load(url)//
-                .placeholder(R.mipmap.ic_default_image)//
-                .error(R.mipmap.ic_default_image)//
+                .placeholder(R.drawable.ic_default_image)//
+                .error(R.drawable.ic_default_image)//
                 .diskCacheStrategy(DiskCacheStrategy.ALL)//
                 .into(imageView);
     }

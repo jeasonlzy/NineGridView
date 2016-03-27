@@ -95,7 +95,7 @@
     <orderEntry type="library" exported="" name="appcompat-v7-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="okhttp-3.0.0-RC1" level="project" />
     <orderEntry type="library" exported="" name="ultra-ptr-1.0.11" level="project" />
+    <orderEntry type="module" module-name="ninegridview" exported="" />
     <orderEntry type="module" module-name="library_okhttputils" exported="" />
-    <orderEntry type="module" module-name="library_ninegridview" exported="" />
   </component>
 </module>

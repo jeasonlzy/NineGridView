@@ -1,4 +1,4 @@
-package com.lzy.ui.preview;
+package com.lzy.widget.preview;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

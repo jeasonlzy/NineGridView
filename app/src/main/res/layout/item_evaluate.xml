@@ -18,7 +18,7 @@
             android:id="@+id/avatar"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@mipmap/ic_default_image"/>
+            android:src="@drawable/ic_default_image"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                 android:textColor="#505050"
                 android:textSize="12sp"/>
 
-            <com.lzy.ui.NineGridView
+            <com.lzy.widget.NineGridView
                 android:id="@+id/nineGrid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

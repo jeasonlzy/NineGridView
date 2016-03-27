@@ -11,9 +11,9 @@ import android.widget.TextView;
 import com.lzy.ninegridview.R;
 import com.lzy.ninegridview.model.news.bean.NewsContent;
 import com.lzy.ninegridview.model.news.bean.NewsImage;
-import com.lzy.ui.ImageInfo;
-import com.lzy.ui.NineGridView;
-import com.lzy.ui.preview.ClickNineGridViewAdapter;
+import com.lzy.widget.ImageInfo;
+import com.lzy.widget.NineGridView;
+import com.lzy.widget.preview.ClickNineGridViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
