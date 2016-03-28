@@ -1,4 +1,4 @@
-package com.lzy.widget.preview;
+package com.lzy.ninegrid.preview;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
@@ -15,8 +15,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.lzy.widget.ImageInfo;
-import com.lzy.widget.R;
+import com.lzy.ninegrid.ImageInfo;
+import com.lzy.ninegrid.R;
 
 import java.util.List;
 

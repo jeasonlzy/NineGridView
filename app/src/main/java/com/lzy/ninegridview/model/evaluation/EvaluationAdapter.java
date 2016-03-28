@@ -25,9 +25,9 @@ import com.lzy.ninegridview.model.evaluation.bean.EvaluationItem;
 import com.lzy.ninegridview.model.evaluation.bean.EvaluationPic;
 import com.lzy.ninegridview.view.CircleImageView;
 import com.lzy.ninegridview.view.GlobalDialog;
-import com.lzy.widget.ImageInfo;
-import com.lzy.widget.NineGridView;
-import com.lzy.widget.preview.ClickNineGridViewAdapter;
+import com.lzy.ninegrid.ImageInfo;
+import com.lzy.ninegrid.NineGridView;
+import com.lzy.ninegrid.preview.ClickNineGridViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

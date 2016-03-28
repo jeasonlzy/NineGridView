@@ -1,4 +1,4 @@
-package com.lzy.widget;
+package com.lzy.ninegrid;
 
 import android.content.Context;
 import android.widget.ImageView;

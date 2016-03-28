@@ -55,7 +55,7 @@
                 android:textColor="#505050"
                 android:textSize="12sp"/>
 
-            <com.lzy.widget.NineGridView
+            <com.lzy.ninegrid.NineGridView
                 android:id="@+id/nineGrid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

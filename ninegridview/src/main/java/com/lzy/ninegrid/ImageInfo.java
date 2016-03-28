@@ -1,4 +1,4 @@
-package com.lzy.widget;
+package com.lzy.ninegrid;
 
 import java.io.Serializable;
 

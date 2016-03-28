@@ -1,1 +1,1 @@
-include ':app', ':ninegridview', ':library_okhttputils'
+include ':app', ':ninegridview'

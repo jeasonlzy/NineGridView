@@ -1,4 +1,4 @@
-package com.lzy.widget.preview;
+package com.lzy.ninegrid.preview;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

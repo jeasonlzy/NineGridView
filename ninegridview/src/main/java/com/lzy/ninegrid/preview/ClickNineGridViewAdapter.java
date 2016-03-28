@@ -1,4 +1,4 @@
-package com.lzy.widget.preview;
+package com.lzy.ninegrid.preview;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,10 +9,10 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.lzy.widget.ImageInfo;
-import com.lzy.widget.NineGridView;
-import com.lzy.widget.NineGridViewAdapter;
-import com.lzy.widget.R;
+import com.lzy.ninegrid.ImageInfo;
+import com.lzy.ninegrid.NineGridView;
+import com.lzy.ninegrid.NineGridViewAdapter;
+import com.lzy.ninegrid.R;
 
 import java.io.Serializable;
 import java.util.List;

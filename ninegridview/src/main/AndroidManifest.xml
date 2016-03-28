@@ -1,5 +1,5 @@
 <manifest
-    package="com.lzy.widget"
+    package="com.lzy.ninegrid"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -11,7 +11,7 @@
         android:supportsRtl="true">
 
         <activity
-            android:name=".preview.ImagePreviewActivity"
+            android:name="com.lzy.ninegrid.preview.ImagePreviewActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
     </application>
 

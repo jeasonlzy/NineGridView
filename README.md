@@ -7,8 +7,17 @@
 ## 演示
  ![image](https://github.com/jeasonlzy0216/NineGridView/blob/master/screenshots/demo1.png) ![image](https://github.com/jeasonlzy0216/NineGridView/blob/master/screenshots/demo2.gif) ![image](https://github.com/jeasonlzy0216/NineGridView/blob/master/screenshots/demo3.png) ![image](https://github.com/jeasonlzy0216/NineGridView/blob/master/screenshots/demo4.gif) ![image](https://github.com/jeasonlzy0216/NineGridView/blob/master/screenshots/demo5.png)![image](https://github.com/jeasonlzy0216/NineGridView/blob/master/screenshots/demo6.png)
 
+## 1.用法
+使用前，对于Android Studio的用户，可以选择添加:
+```java
+	compile 'com.lzy.widget:ninegridview:0.1.2'
+```
+或者使用
+```java
+    compile project(':ninegridview')
+```
 
-## 1.项目功能
+## 2.项目功能
  * 使用Adapter模式设置图片
  * 当图片数量只有一张时，自动根据图片大小调整控件大小
  * 默认增加了图片点击全屏预览效果，并附带预览动画
@@ -17,7 +26,7 @@
  * 使用代码简单，只需要几行代码
  * 其他功能增加中......
 
-## 2.参数含义
+## 3.参数含义
 
 <table>
   <tdead>
@@ -50,7 +59,7 @@
      </tbody>
 </table>
 
-## 代码演示
+## 4.代码演示
 ####使用时只需要在每个条目需要展示的地方用如下代码，其中
  * `ImageInfo`是库中提供的数据Bean，需要两个url，分别表示小图和大图的url，没有大图或者小图，则都赋给相同的Url即可。
  * `ClickNineGridViewAdapter`是库中提供的默认实现了点击预览的Adapter，如果不想使用预览效果，可以自己继承 `NineGridViewAdapter` 实现其中 `onDisplayImage` 方法即可。

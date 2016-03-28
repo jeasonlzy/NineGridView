@@ -28,7 +28,7 @@
         android:textSize="12sp"
         tools:text="描述描述描述描述描述描述描述描述"/>
 
-    <com.lzy.widget.NineGridView
+    <com.lzy.ninegrid.NineGridView
         android:id="@+id/nineGrid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

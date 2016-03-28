@@ -1,4 +1,4 @@
-package com.lzy.widget.preview;
+package com.lzy.ninegrid.preview;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -14,8 +14,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.lzy.widget.ImageInfo;
-import com.lzy.widget.R;
+import com.lzy.ninegrid.ImageInfo;
+import com.lzy.ninegrid.R;
 
 import java.util.List;
 
