@@ -1,4 +1,4 @@
-package com.lzy.ninegridview.view;
+package com.lzy.ninegridview.utils;
 
 import android.app.Dialog;
 import android.content.Context;

@@ -15,8 +15,8 @@ import com.lzy.ninegridview.R;
 import com.lzy.ninegridview.model.news.bean.NewsChannel;
 import com.lzy.ninegridview.utils.NewsCallBack;
 import com.lzy.ninegridview.utils.Urls;
-import com.lzy.ninegridview.view.PagerSlidingTabStrip;
 import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.widget.tab.PagerSlidingTabStrip;
 
 import org.json.JSONArray;
 import org.json.JSONException;

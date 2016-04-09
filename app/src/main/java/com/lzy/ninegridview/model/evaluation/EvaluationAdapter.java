@@ -23,11 +23,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lzy.ninegridview.R;
 import com.lzy.ninegridview.model.evaluation.bean.EvaluationItem;
 import com.lzy.ninegridview.model.evaluation.bean.EvaluationPic;
-import com.lzy.ninegridview.view.CircleImageView;
-import com.lzy.ninegridview.view.GlobalDialog;
+import com.lzy.ninegridview.utils.GlobalDialog;
 import com.lzy.ninegrid.ImageInfo;
 import com.lzy.ninegrid.NineGridView;
 import com.lzy.ninegrid.preview.ClickNineGridViewAdapter;
+import com.lzy.widget.CircleImageView;
 
 import java.util.ArrayList;
 import java.util.List;

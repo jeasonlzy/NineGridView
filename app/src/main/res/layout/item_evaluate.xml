@@ -14,7 +14,7 @@
         android:paddingRight="18.5dp"
         android:paddingTop="12.5dp">
 
-        <com.lzy.ninegridview.view.CircleImageView
+        <com.lzy.widget.CircleImageView
             android:id="@+id/avatar"
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -95,7 +95,7 @@
                     android:background="@mipmap/feed_more"/>
             </RelativeLayout>
 
-            <com.lzy.ninegridview.view.FullyListView
+            <com.lzy.widget.ExpandListView
                 android:id="@+id/lv_comments"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
