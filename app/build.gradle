@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         minSdkVersion 8
@@ -23,9 +23,11 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.google.code.gson:gson:2.6.2'
     compile 'in.srain.cube:ultra-ptr:1.0.11'
+    compile 'com.lzy.net:okhttputils:1.2.0'
+    compile 'com.lzy.widget:view-core:0.1.9'
 
-    compile 'com.lzy.widget:ninegridview:0.1.2'
-    compile 'com.lzy.widget:view-core:0.1.6'
-    compile 'com.lzy.net:okhttputils:0.1.0'
+    //    compile 'com.lzy.widget:ninegridview:+'
+    compile project(':ninegridview')
 }

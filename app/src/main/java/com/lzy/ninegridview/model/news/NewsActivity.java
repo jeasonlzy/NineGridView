@@ -1,6 +1,7 @@
 package com.lzy.ninegridview.model.news;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -12,8 +13,8 @@ import android.view.ViewGroup;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.ninegridview.R;
+import com.lzy.ninegridview.callback.NewsCallBack;
 import com.lzy.ninegridview.model.news.bean.NewsChannel;
-import com.lzy.ninegridview.utils.NewsCallBack;
 import com.lzy.ninegridview.utils.Urls;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.widget.tab.PagerSlidingTabStrip;
@@ -27,6 +28,8 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class NewsActivity extends AppCompatActivity {
 
@@ -44,21 +47,23 @@ public class NewsActivity extends AppCompatActivity {
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         addContentView(emptyView, params);
 
-        OkHttpUtils.get(Urls.CHANNEL).tag(this).execute(new NewsCallBack<String>() {
-            @Override
-            public void onResponse(String s) {
-                try {
-                    emptyView.setVisibility(View.GONE);
-                    JSONArray object = new JSONObject(s).getJSONObject("showapi_res_body").getJSONArray("channelList");
-                    Type channelItemType = new TypeToken<List<NewsChannel>>() {}.getType();
-                    List<NewsChannel> channelItems = new Gson().fromJson(object.toString(), channelItemType);
-                    viewPager.setAdapter(new ChannelAdapter(getSupportFragmentManager(), channelItems));
-                    tab.setViewPager(viewPager);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        OkHttpUtils.get(Urls.CHANNEL)//
+                .tag(this)//
+                .execute(new NewsCallBack() {
+                    @Override
+                    public void onResponse(boolean isFromCache, String s, Request request, @Nullable Response response) {
+                        try {
+                            emptyView.setVisibility(View.GONE);
+                            JSONArray object = new JSONObject(s).getJSONObject("showapi_res_body").getJSONArray("channelList");
+                            Type channelItemType = new TypeToken<List<NewsChannel>>() {}.getType();
+                            List<NewsChannel> channelItems = new Gson().fromJson(object.toString(), channelItemType);
+                            viewPager.setAdapter(new ChannelAdapter(getSupportFragmentManager(), channelItems));
+                            tab.setViewPager(viewPager);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     private class ChannelAdapter extends FragmentPagerAdapter {

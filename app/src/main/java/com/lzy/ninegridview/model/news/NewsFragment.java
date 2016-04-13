@@ -12,11 +12,11 @@ import android.view.ViewGroup;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lzy.ninegridview.R;
+import com.lzy.ninegridview.callback.NewsCallBack;
 import com.lzy.ninegridview.model.news.bean.NewsContent;
-import com.lzy.ninegridview.utils.NewsCallBack;
 import com.lzy.ninegridview.utils.Urls;
 import com.lzy.okhttputils.OkHttpUtils;
-import com.lzy.okhttputils.model.RequestParams;
+import com.lzy.okhttputils.model.HttpParams;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +31,8 @@ import butterknife.ButterKnife;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * ================================================
@@ -79,28 +81,31 @@ public class NewsFragment extends Fragment {
     }
 
     private void initData(final boolean isMore) {
-        RequestParams params = new RequestParams();
+        HttpParams params = new HttpParams();
         params.put("channelId", channelId);
         params.put("page", String.valueOf(page));
-        OkHttpUtils.get(Urls.NEWS).tag(this).params(params).execute(new NewsCallBack<String>() {
-            @Override
-            public void onResponse(String s) {
-                try {
-                    JSONArray object = new JSONObject(s).getJSONObject("showapi_res_body").getJSONObject("pagebean").getJSONArray("contentlist");
-                    Type newsContentType = new TypeToken<List<NewsContent>>() {}.getType();
-                    if (isMore) {
-                        List<NewsContent> more = new Gson().fromJson(object.toString(), newsContentType);
-                        newsContentList.addAll(0, more);
-                    } else {
-                        newsContentList = new Gson().fromJson(object.toString(), newsContentType);
+        OkHttpUtils.get(Urls.NEWS)//
+                .tag(this)//
+                .params(params)//
+                .execute(new NewsCallBack() {
+                    @Override
+                    public void onResponse(boolean isFromCache, String s, Request request, @Nullable Response response) {
+                        try {
+                            JSONArray object = new JSONObject(s).getJSONObject("showapi_res_body").getJSONObject("pagebean").getJSONArray("contentlist");
+                            Type newsContentType = new TypeToken<List<NewsContent>>() {}.getType();
+                            if (isMore) {
+                                List<NewsContent> more = new Gson().fromJson(object.toString(), newsContentType);
+                                newsContentList.addAll(0, more);
+                            } else {
+                                newsContentList = new Gson().fromJson(object.toString(), newsContentType);
+                            }
+                            mAdapter.setData(newsContentList);
+                            page++;
+                            ptr.refreshComplete();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
-                    mAdapter.setData(newsContentList);
-                    page++;
-                    ptr.refreshComplete();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+                });
     }
 }

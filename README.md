@@ -6,7 +6,6 @@
 
 ### 联系方式
  * 邮箱地址： liaojeason@126.com
- * 微信号： Lzy_19920216
  * QQ群： 489873144 （建议使用QQ群，邮箱使用较少，可能看的不及时）
  * 本群刚建立，旨在为使用我的github项目的人提供方便，如果遇到问题欢迎在群里提问。个人能力也有限，希望一起学习一起进步。
 
@@ -17,7 +16,7 @@
 ## 1.用法
 使用前，对于Android Studio的用户，可以选择添加:
 ```java
-	compile 'com.lzy.widget:ninegridview:0.1.2'
+	compile 'com.lzy.widget:ninegridview:0.1.3'
 ```
 或者使用
 ```java
