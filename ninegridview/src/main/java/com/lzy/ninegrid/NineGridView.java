@@ -15,27 +15,19 @@ import java.util.List;
 
 public class NineGridView extends ViewGroup {
 
-    public static final ImageView.ScaleType[] SCALE_TYPES = {//
-            ImageView.ScaleType.MATRIX,//
-            ImageView.ScaleType.FIT_XY,//
-            ImageView.ScaleType.FIT_START,//
-            ImageView.ScaleType.FIT_CENTER,//
-            ImageView.ScaleType.FIT_END,//
-            ImageView.ScaleType.CENTER,//
-            ImageView.ScaleType.CENTER_CROP,//
-            ImageView.ScaleType.CENTER_INSIDE};
+    public static final int MODE_FILL = 0;         //填充模式，类似于微信
+    public static final int MODE_GRID = 1;         //网格模式，类似于QQ，4张图会 2X2布局
 
     private int singleImageSize = 250;              // 单张图片时的最大大小,单位dp
-    private int singleImageScaleType = 6;           // 单张图片的缩放模式
     private float singleImageRatio = 1.0f;          // 单张图片的宽高比(宽/高)
     private int maxImageSize = 9;                   // 最大显示的图片数
     private int gridSpacing = 3;                    // 宫格间距，单位dp
+    private int mode = MODE_FILL;                   // 默认使用fill模式
 
     private int columnCount;    // 列数
     private int rowCount;       // 行数
     private int gridWidth;      // 宫格宽度
     private int gridHeight;     // 宫格高度
-    private ImageView.ScaleType mScaleType = SCALE_TYPES[singleImageScaleType];
 
     private List<ImageView> imageViews;
     private List<ImageInfo> mImageInfo;
@@ -57,12 +49,11 @@ public class NineGridView extends ViewGroup {
         singleImageSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, singleImageSize, dm);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.NineGridView);
-        gridSpacing = (int) a.getDimension(R.styleable.NineGridView_gridSpacing, gridSpacing);
-        singleImageSize = a.getDimensionPixelSize(R.styleable.NineGridView_singleImageSize, singleImageSize);
-        singleImageRatio = a.getFloat(R.styleable.NineGridView_singleImageRatio, singleImageRatio);
-        singleImageScaleType = a.getInt(R.styleable.NineGridView_singleImageScaleType, singleImageScaleType);
-        mScaleType = SCALE_TYPES[singleImageScaleType];
-        maxImageSize = a.getInt(R.styleable.NineGridView_maxSize, maxImageSize);
+        gridSpacing = (int) a.getDimension(R.styleable.NineGridView_ngv_gridSpacing, gridSpacing);
+        singleImageSize = a.getDimensionPixelSize(R.styleable.NineGridView_ngv_singleImageSize, singleImageSize);
+        singleImageRatio = a.getFloat(R.styleable.NineGridView_ngv_singleImageRatio, singleImageRatio);
+        maxImageSize = a.getInt(R.styleable.NineGridView_ngv_maxSize, maxImageSize);
+        mode = a.getInt(R.styleable.NineGridView_ngv_mode, mode);
         a.recycle();
 
         imageViews = new ArrayList<>();
@@ -76,7 +67,6 @@ public class NineGridView extends ViewGroup {
         int totalWidth = width - getPaddingLeft() - getPaddingRight();
         if (mImageInfo != null && mImageInfo.size() > 0) {
             if (mImageInfo.size() == 1) {
-                imageViews.get(0).setScaleType(mScaleType);
                 gridWidth = singleImageSize > totalWidth ? totalWidth : singleImageSize;
                 gridHeight = (int) (gridWidth / singleImageRatio);
                 //矫正图片显示区域大小，不允许超过最大显示范围
@@ -86,8 +76,9 @@ public class NineGridView extends ViewGroup {
                     gridHeight = singleImageSize;
                 }
             } else {
-                imageViews.get(0).setScaleType(ImageView.ScaleType.CENTER_CROP);
-                gridWidth = gridHeight = (totalWidth - gridSpacing * (columnCount - 1)) / columnCount;
+//                gridWidth = gridHeight = (totalWidth - gridSpacing * (columnCount - 1)) / columnCount;
+                //这里无论是几张图片，宽高都按总宽度的 1/3
+                gridWidth = gridHeight = (totalWidth - gridSpacing * 2) / 3;
             }
             width = gridWidth * columnCount + gridSpacing * (columnCount - 1) + getPaddingLeft() + getPaddingRight();
             height = gridHeight * rowCount + gridSpacing * (rowCount - 1) + getPaddingTop() + getPaddingBottom();
@@ -126,24 +117,33 @@ public class NineGridView extends ViewGroup {
             setVisibility(VISIBLE);
         }
 
-        if (maxImageSize > 0 && imageInfo.size() > maxImageSize) {
+        int imageCount = imageInfo.size();
+        if (maxImageSize > 0 && imageCount > maxImageSize) {
             imageInfo = imageInfo.subList(0, maxImageSize);
+            imageCount = imageInfo.size();   //再次获取图片数量
         }
 
         //默认是3列显示，行数根据图片的数量决定
-        rowCount = imageInfo.size() / 3 + (imageInfo.size() % 3 == 0 ? 0 : 1);
+        rowCount = imageCount / 3 + (imageCount % 3 == 0 ? 0 : 1);
         columnCount = 3;
+        //grid模式下，显示4张使用2X2模式
+        if (mode == MODE_GRID) {
+            if (imageCount == 4) {
+                rowCount = 2;
+                columnCount = 2;
+            }
+        }
 
         //保证View的复用，避免重复创建
         if (mImageInfo == null) {
-            for (int i = 0; i < imageInfo.size(); i++) {
+            for (int i = 0; i < imageCount; i++) {
                 ImageView iv = getImageView(i);
                 if (iv == null) return;
                 addView(iv, generateDefaultLayoutParams());
             }
         } else {
             int oldViewCount = mImageInfo.size();
-            int newViewCount = imageInfo.size();
+            int newViewCount = imageCount;
             if (oldViewCount > newViewCount) {
                 removeViews(newViewCount, oldViewCount - newViewCount);
             } else if (oldViewCount < newViewCount) {
@@ -152,6 +152,14 @@ public class NineGridView extends ViewGroup {
                     if (iv == null) return;
                     addView(iv, generateDefaultLayoutParams());
                 }
+            }
+        }
+        //修改最后一个条目，决定是否显示更多
+        if (adapter.getImageInfo().size() > maxImageSize) {
+            View child = getChildAt(maxImageSize - 1);
+            if (child instanceof NineGridViewWrapper) {
+                NineGridViewWrapper imageView = (NineGridViewWrapper) child;
+                imageView.setMoreNum(adapter.getImageInfo().size() - maxImageSize);
             }
         }
         mImageInfo = imageInfo;
@@ -189,23 +197,6 @@ public class NineGridView extends ViewGroup {
     /** 设置只有一张图片时的宽高比 */
     public void setSingleImageRatio(float ratio) {
         singleImageRatio = ratio;
-    }
-
-    /** 设置只有一张图片时的缩放模式 */
-    public void setSingleImageScaleType(int scaleType) {
-        singleImageScaleType = scaleType;
-        mScaleType = SCALE_TYPES[singleImageScaleType];
-    }
-
-    /** 设置只有一张图片时的缩放模式 */
-    public void setSingleImageScaleType(ImageView.ScaleType scaleType) {
-        mScaleType = scaleType;
-        for (int i = 0; i < SCALE_TYPES.length; i++) {
-            if (SCALE_TYPES[i] == scaleType) {
-                singleImageScaleType = i;
-                break;
-            }
-        }
     }
 
     /** 设置最大图片数 */

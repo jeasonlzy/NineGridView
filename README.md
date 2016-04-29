@@ -16,7 +16,7 @@
 ## 1.用法
 使用前，对于Android Studio的用户，可以选择添加:
 ```java
-	compile 'com.lzy.widget:ninegridview:0.1.3'
+	compile 'com.lzy.widget:ninegridview:0.1.4'
 ```
 或者使用
 ```java
@@ -29,6 +29,8 @@
  * 默认增加了图片点击全屏预览效果，并附带预览动画
  * 整合了Glide图片加载和PhotoView图片预览
  * 使用接口抽出图片的加载方式，可以方便的将Glide替换成自己喜欢的ImageLoader等
+ * 支持fill个grid两种显示模式
+ * 当获取的图片数量超过最大显示的图片数量时，最后一张图片上会显示剩余数量（类似于QQ的动态效果）
  * 使用代码简单，只需要几行代码
  * 其他功能增加中......
 
@@ -43,24 +45,24 @@
   </tdead>
   <tbody>
     <tr>
-      <td align="center">singleImageSize</td>
+      <td align="center">ngv_singleImageSize</td>
       <td align="center">只显示一张图片时的最大图片大小</td>
     </tr>
     <tr>
-      <td align="center">singleImageRatio</td>
+      <td align="center">ngv_singleImageRatio</td>
       <td align="center">只显示一张图片时图片宽高比</td>
     </tr>
     <tr>
-      <td align="center">singleImageScaleType</td>
-      <td align="center">只显示一张图片时图片的缩放模式</td>
-    </tr>
-    <tr>
-      <td align="center">gridSpacing</td>
+      <td align="center">ngv_gridSpacing</td>
       <td align="center">网格显示图片时，图片之间的间距，默认3dp</td>
     </tr>
     <tr>
-      <td align="center">maxSize</td>
+      <td align="center">ngv_maxSize</td>
       <td align="center">最多显示图片的数量，默认最大9张</td>
+    </tr>
+    <tr>
+      <td align="center">ngv_mode</td>
+      <td align="center">支持fill和grid两种显示模式，其中grid模式在显示4张图片时采用2*2的布局</td>
     </tr>
      </tbody>
 </table>

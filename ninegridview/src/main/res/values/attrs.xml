@@ -1,29 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="NineGridView1">
-        <attr name="imageWidth1" format="dimension"/>
-        <attr name="imageHeight1" format="dimension"/>
-        <attr name="imageWidth2" format="dimension"/>
-        <attr name="imageHeight2" format="dimension"/>
-        <attr name="imageWidth3" format="dimension"/>
-        <attr name="imageHeight3" format="dimension"/>
-        <attr name="imageSpace" format="dimension"/>
-    </declare-styleable>
-
     <declare-styleable name="NineGridView">
-        <attr name="singleImageSize" format="dimension"/>
-        <attr name="singleImageRatio" format="float"/>
-        <attr name="singleImageScaleType" format="enum">
-            <enum name="matrix" value="0"/>
-            <enum name="fit_xy" value="1"/>
-            <enum name="fit_start" value="2"/>
-            <enum name="fit_center" value="3"/>
-            <enum name="fit_end" value="4"/>
-            <enum name="center" value="5"/>
-            <enum name="center_crop" value="6"/>
-            <enum name="center_inside" value="7"/>
+        <attr name="ngv_singleImageSize" format="dimension"/>
+        <attr name="ngv_singleImageRatio" format="float"/>
+        <attr name="ngv_gridSpacing" format="dimension"/>
+        <attr name="ngv_maxSize" format="integer"/>
+        <attr name="ngv_mode" format="enum">
+            <enum name="fill" value="0"/>
+            <enum name="grid" value="1"/>
         </attr>
-        <attr name="gridSpacing" format="dimension"/>
-        <attr name="maxSize" format="integer"/>
     </declare-styleable>
 </resources>

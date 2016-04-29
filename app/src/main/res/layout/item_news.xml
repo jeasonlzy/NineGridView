@@ -33,11 +33,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        app:gridSpacing="3dp"
-        app:maxSize="9"
-        app:singleImageRatio="1"
-        app:singleImageScaleType="fit_start"
-        app:singleImageSize="250dp"/>
+        app:ngv_gridSpacing="3dp"
+        app:ngv_maxSize="9"
+        app:ngv_mode="grid"
+        app:ngv_singleImageRatio="1"
+        app:ngv_singleImageSize="250dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

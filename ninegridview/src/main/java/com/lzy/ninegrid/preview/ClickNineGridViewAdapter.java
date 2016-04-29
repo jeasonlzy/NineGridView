@@ -46,10 +46,15 @@ public class ClickNineGridViewAdapter extends NineGridViewAdapter {
 
     @Override
     protected void onImageItemClick(Context context, NineGridView nineGridView, int index, List<ImageInfo> imageInfo) {
-        int imageNum = Math.min(imageInfo.size(), nineGridView.getMaxSize());
-        for (int i = 0; i < imageNum; i++) {
+        for (int i = 0; i < imageInfo.size(); i++) {
             ImageInfo info = imageInfo.get(i);
-            View imageView = nineGridView.getChildAt(i);
+            View imageView;
+            if (i < nineGridView.getMaxSize()) {
+                imageView = nineGridView.getChildAt(i);
+            } else {
+                //如果图片的数量大于显示的数量，则超过部分的返回动画统一退回到最后一个图片的位置
+                imageView = nineGridView.getChildAt(nineGridView.getMaxSize() - 1);
+            }
             info.imageViewWidth = imageView.getWidth();
             info.imageViewHeight = imageView.getHeight();
             int[] points = new int[2];
