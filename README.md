@@ -11,7 +11,7 @@
 
 
 ## 演示
- ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo1.png) ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo2.gif) ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo3.png) ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo4.gif) ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo5.png)![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo6.png)
+ ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo1.png) ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo2.gif) ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo3.png) ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo4.gif) ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo7.png)![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo8.png)
 
 ## 1.用法
 使用前，对于Android Studio的用户，可以选择添加:
