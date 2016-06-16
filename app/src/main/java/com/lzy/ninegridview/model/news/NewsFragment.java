@@ -16,6 +16,7 @@ import com.lzy.ninegridview.callback.NewsCallBack;
 import com.lzy.ninegridview.model.news.bean.NewsContent;
 import com.lzy.ninegridview.utils.Urls;
 import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.cache.CacheMode;
 import com.lzy.okhttputils.model.HttpParams;
 
 import org.json.JSONArray;
@@ -87,6 +88,8 @@ public class NewsFragment extends Fragment {
         OkHttpUtils.get(Urls.NEWS)//
                 .tag(this)//
                 .params(params)//
+                .cacheKey("NEWS")//
+                .cacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST)//
                 .execute(new NewsCallBack() {
                     @Override
                     public void onResponse(boolean isFromCache, String s, Request request, @Nullable Response response) {

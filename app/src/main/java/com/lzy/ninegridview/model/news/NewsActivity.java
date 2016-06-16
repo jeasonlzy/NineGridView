@@ -17,6 +17,7 @@ import com.lzy.ninegridview.callback.NewsCallBack;
 import com.lzy.ninegridview.model.news.bean.NewsChannel;
 import com.lzy.ninegridview.utils.Urls;
 import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.cache.CacheMode;
 import com.lzy.widget.tab.PagerSlidingTabStrip;
 
 import org.json.JSONArray;
@@ -49,6 +50,8 @@ public class NewsActivity extends AppCompatActivity {
 
         OkHttpUtils.get(Urls.CHANNEL)//
                 .tag(this)//
+                .cacheKey("CHANNEL")//
+                .cacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST)//
                 .execute(new NewsCallBack() {
                     @Override
                     public void onResponse(boolean isFromCache, String s, Request request, @Nullable Response response) {

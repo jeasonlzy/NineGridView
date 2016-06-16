@@ -11,7 +11,7 @@
 
 
 ## 演示
- ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo1.png) ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo2.gif) ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo3.png) ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo4.gif) ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo7.png)![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo8.png)
+ ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo9.png) ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo2.gif) ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo3.png) ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo4.gif) ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo7.png)![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo8.png)
 
 ## 1.用法
 使用前，对于Android Studio的用户，可以选择添加:
@@ -72,6 +72,7 @@
 ### 1.在Application中初始化NineGridView的图片加载器
 ```java
     NineGridView.setImageLoader(new PicassoImageLoader());
+
     /** Picasso 加载 */
     private class PicassoImageLoader implements NineGridView.ImageLoader {
 

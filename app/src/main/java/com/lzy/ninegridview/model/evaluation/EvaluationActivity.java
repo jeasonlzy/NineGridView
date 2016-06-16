@@ -13,6 +13,7 @@ import com.lzy.ninegridview.model.evaluation.bean.Evaluation;
 import com.lzy.ninegridview.model.evaluation.bean.EvaluationItem;
 import com.lzy.ninegridview.utils.Urls;
 import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.cache.CacheMode;
 import com.lzy.okhttputils.model.HttpParams;
 
 import java.util.ArrayList;
@@ -65,6 +66,8 @@ public class EvaluationActivity extends AppCompatActivity {
         OkHttpUtils.post(Urls.Evaluation)//
                 .tag(this)//
                 .params(params)//
+                .cacheKey("Evaluation")//
+                .cacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST)//
                 .execute(new JsonCallback<Evaluation>(Evaluation.class) {
                     @Override
                     public void onResponse(boolean isFromCache, Evaluation evaluation, Request request, @Nullable Response response) {
