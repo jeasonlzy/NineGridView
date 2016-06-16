@@ -5,14 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lzy.ninegrid.ImageInfo;
 import com.lzy.ninegrid.NineGridView;
 import com.lzy.ninegrid.NineGridViewAdapter;
-import com.lzy.ninegrid.R;
 
 import java.io.Serializable;
 import java.util.List;
@@ -26,22 +22,13 @@ import java.util.List;
  * 修订历史：
  * ================================================
  */
-public class ClickNineGridViewAdapter extends NineGridViewAdapter {
+public class NineGridViewClickAdapter extends NineGridViewAdapter {
 
     private int statusHeight;
 
-    public ClickNineGridViewAdapter(Context context, List<ImageInfo> imageInfo) {
+    public NineGridViewClickAdapter(Context context, List<ImageInfo> imageInfo) {
         super(context, imageInfo);
         statusHeight = getStatusHeight(context);
-    }
-
-    @Override
-    public void onDisplayImage(Context context, ImageView imageView, ImageInfo imageInfo) {
-        Glide.with(context).load(imageInfo.thumbnailUrl)//
-                .placeholder(R.drawable.ic_default_image)//
-                .error(R.drawable.ic_default_image)//
-                .diskCacheStrategy(DiskCacheStrategy.ALL)//
-                .into(imageView);
     }
 
     @Override

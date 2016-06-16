@@ -17,15 +17,6 @@ public abstract class NineGridViewAdapter implements Serializable {
     }
 
     /**
-     * 需要子类实现该方法，以确定如何加载和显示图片
-     *
-     * @param context   上下文
-     * @param imageView 需要展示图片的ImageView
-     * @param imageInfo 图片地址
-     */
-    public abstract void onDisplayImage(Context context, ImageView imageView, ImageInfo imageInfo);
-
-    /**
      * 如果要实现图片点击的逻辑，重写此方法即可
      *
      * @param context      上下文
@@ -53,7 +44,7 @@ public abstract class NineGridViewAdapter implements Serializable {
         return imageInfo;
     }
 
-    public void setImageInfo(List<ImageInfo> imageInfo) {
+    public void setImageInfoList(List<ImageInfo> imageInfo) {
         this.imageInfo = imageInfo;
     }
 }

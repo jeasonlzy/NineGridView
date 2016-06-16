@@ -4,9 +4,66 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="#9666"
+            android:gravity="center"
+            android:text="图片加载框架"
+            android:textColor="#FFF"/>
+
+        <RadioGroup
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#B666">
+
+            <RadioButton
+                android:id="@+id/picasso"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="picasso"
+                android:textColor="#FFF"/>
+
+            <RadioButton
+                android:id="@+id/glide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="glide"
+                android:textColor="#FFF"/>
+
+            <RadioButton
+                android:id="@+id/xutils3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="xutils3"
+                android:textColor="#FFF"/>
+
+            <RadioButton
+                android:id="@+id/universal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="universal-image-loader"
+                android:textColor="#FFF"/>
+
+            <RadioButton
+                android:id="@+id/fresco"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="fresco(默认支持,但是需要修改布局)"
+                android:textColor="#FFF"/>
+        </RadioGroup>
+    </LinearLayout>
+
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
 </LinearLayout>

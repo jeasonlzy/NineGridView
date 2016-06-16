@@ -2,6 +2,7 @@ package com.lzy.ninegrid;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -15,8 +16,10 @@ import java.util.List;
 
 public class NineGridView extends ViewGroup {
 
-    public static final int MODE_FILL = 0;         //填充模式，类似于微信
-    public static final int MODE_GRID = 1;         //网格模式，类似于QQ，4张图会 2X2布局
+    public static final int MODE_FILL = 0;          //填充模式，类似于微信
+    public static final int MODE_GRID = 1;          //网格模式，类似于QQ，4张图会 2X2布局
+
+    private static ImageLoader mImageLoader;        //全局的图片加载器(必须设置,否者不显示图片)
 
     private int singleImageSize = 250;              // 单张图片时的最大大小,单位dp
     private float singleImageRatio = 1.0f;          // 单张图片的宽高比(宽/高)
@@ -92,8 +95,8 @@ public class NineGridView extends ViewGroup {
         int childrenCount = mImageInfo.size();
         for (int i = 0; i < childrenCount; i++) {
             ImageView childrenView = (ImageView) getChildAt(i);
-            if (mAdapter != null) {
-                mAdapter.onDisplayImage(getContext(), childrenView, mImageInfo.get(i));
+            if (mImageLoader != null) {
+                mImageLoader.onDisplayImage(getContext(), childrenView, mImageInfo.get(i).thumbnailUrl);
             }
             int rowNum = i / columnCount;
             int columnNum = i % columnCount;
@@ -206,5 +209,30 @@ public class NineGridView extends ViewGroup {
 
     public int getMaxSize() {
         return maxImageSize;
+    }
+
+    public static void setImageLoader(ImageLoader imageLoader) {
+        mImageLoader = imageLoader;
+    }
+
+    public static ImageLoader getImageLoader() {
+        return mImageLoader;
+    }
+
+    public interface ImageLoader {
+        /**
+         * 需要子类实现该方法，以确定如何加载和显示图片
+         *
+         * @param context   上下文
+         * @param imageView 需要展示图片的ImageView
+         * @param url       图片地址
+         */
+        void onDisplayImage(Context context, ImageView imageView, String url);
+
+        /**
+         * @param url 图片的地址
+         * @return 当前框架的本地缓存图片
+         */
+        Bitmap getCacheImage(String url);
     }
 }

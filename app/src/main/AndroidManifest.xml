@@ -3,6 +3,9 @@
     package="com.lzy.ninegridview"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:name=".GApp"
         android:allowBackup="true"
@@ -20,7 +23,6 @@
         <activity android:name=".model.news.NewsActivity"/>
         <activity android:name=".model.news.NewsLinkActivity"/>
         <activity android:name=".model.evaluation.EvaluationActivity"/>
-
     </application>
 
 </manifest>

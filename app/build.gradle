@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        minSdkVersion 8
+        minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -25,8 +25,14 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'in.srain.cube:ultra-ptr:1.0.11'
-    compile 'com.lzy.net:okhttputils:1.2.0'
-    compile 'com.lzy.widget:view-core:0.1.9'
+    compile 'com.lzy.net:okhttputils:1.5.2'
+    compile 'com.lzy.widget:view-core:0.2.1'
+
+    compile 'org.xutils:xutils:3.3.36'
+    compile 'com.facebook.fresco:fresco:0.11.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 
     //    compile 'com.lzy.widget:ninegridview:+'
     compile project(':ninegridview')

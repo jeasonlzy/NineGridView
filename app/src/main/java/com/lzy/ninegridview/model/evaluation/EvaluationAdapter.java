@@ -26,7 +26,7 @@ import com.lzy.ninegridview.model.evaluation.bean.EvaluationPic;
 import com.lzy.ninegridview.utils.GlobalDialog;
 import com.lzy.ninegrid.ImageInfo;
 import com.lzy.ninegrid.NineGridView;
-import com.lzy.ninegrid.preview.ClickNineGridViewAdapter;
+import com.lzy.ninegrid.preview.NineGridViewClickAdapter;
 import com.lzy.widget.CircleImageView;
 
 import java.util.ArrayList;
@@ -102,7 +102,7 @@ public class EvaluationAdapter extends BaseAdapter {
                 imageInfo.add(info);
             }
         }
-        holder.nineGrid.setAdapter(new ClickNineGridViewAdapter(context, imageInfo));
+        holder.nineGrid.setAdapter(new NineGridViewClickAdapter(context, imageInfo));
 
         if (item.evaluatereplys == null) {
             holder.comments.setVisibility(View.GONE);

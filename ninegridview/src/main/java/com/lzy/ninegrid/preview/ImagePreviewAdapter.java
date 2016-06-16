@@ -1,6 +1,7 @@
 package com.lzy.ninegrid.preview;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -9,12 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.lzy.ninegrid.ImageInfo;
+import com.lzy.ninegrid.NineGridView;
 import com.lzy.ninegrid.R;
 
 import java.util.List;
@@ -77,24 +74,27 @@ public class ImagePreviewAdapter extends PagerAdapter implements PhotoViewAttach
         imageView.setOnPhotoTapListener(this);
         showExcessPic(info, imageView);
 
-        pb.setVisibility(View.VISIBLE);
-        Glide.with(context).load(info.bigImageUrl)//
-                .placeholder(R.drawable.ic_default_image)//
-                .error(R.drawable.ic_default_image)//
-                .diskCacheStrategy(DiskCacheStrategy.ALL)//
-                .listener(new RequestListener<String, GlideDrawable>() {
-                    @Override
-                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        pb.setVisibility(View.GONE);
-                        return false;
-                    }
+        //如果需要加载的loading,需要自己改写,不能使用这个方法
+        NineGridView.getImageLoader().onDisplayImage(view.getContext(), imageView, info.bigImageUrl);
 
-                    @Override
-                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        pb.setVisibility(View.GONE);
-                        return false;
-                    }
-                }).into(imageView);
+//        pb.setVisibility(View.VISIBLE);
+//        Glide.with(context).load(info.bigImageUrl)//
+//                .placeholder(R.drawable.ic_default_image)//
+//                .error(R.drawable.ic_default_image)//
+//                .diskCacheStrategy(DiskCacheStrategy.ALL)//
+//                .listener(new RequestListener<String, GlideDrawable>() {
+//                    @Override
+//                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+//                        pb.setVisibility(View.GONE);
+//                        return false;
+//                    }
+//
+//                    @Override
+//                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+//                        pb.setVisibility(View.GONE);
+//                        return false;
+//                    }
+//                }).into(imageView);
 
         container.addView(view);
         return view;
@@ -102,8 +102,16 @@ public class ImagePreviewAdapter extends PagerAdapter implements PhotoViewAttach
 
     /** 展示过度图片 */
     private void showExcessPic(ImageInfo imageInfo, PhotoView imageView) {
-        //TODO 此处为了用户体验更好，可以手动获取图片的缓存文件
-        imageView.setImageResource(R.drawable.ic_default_image);
+        //先获取大图的缓存图片
+        Bitmap cacheImage = NineGridView.getImageLoader().getCacheImage(imageInfo.bigImageUrl);
+        //如果大图的缓存不存在,在获取小图的缓存
+        if (cacheImage == null) cacheImage = NineGridView.getImageLoader().getCacheImage(imageInfo.thumbnailUrl);
+        //如果没有任何缓存,使用默认图片,否者使用缓存
+        if (cacheImage == null) {
+            imageView.setImageResource(R.drawable.ic_default_image);
+        } else {
+            imageView.setImageBitmap(cacheImage);
+        }
     }
 
     @Override

@@ -24,7 +24,7 @@ public class ImagePreviewActivity extends Activity implements ViewTreeObserver.O
 
     public static final String IMAGE_INFO = "IMAGE_INFO";
     public static final String CURRENT_ITEM = "CURRENT_ITEM";
-    public static final int ANIMATE_DURATION = 300;
+    public static final int ANIMATE_DURATION = 200;
 
     private RelativeLayout rootView;
 
@@ -88,7 +88,10 @@ public class ImagePreviewActivity extends Activity implements ViewTreeObserver.O
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                float fraction = animation.getAnimatedFraction();
+                long duration = animation.getDuration();
+                long playTime = animation.getCurrentPlayTime();
+                float fraction = duration > 0 ? (float) playTime / duration : 1f;
+                if (fraction > 1) fraction = 1;
                 view.setTranslationX(evaluateInt(fraction, imageData.imageViewX + imageData.imageViewWidth / 2 - imageView.getWidth() / 2, 0));
                 view.setTranslationY(evaluateInt(fraction, imageData.imageViewY + imageData.imageViewHeight / 2 - imageView.getHeight() / 2, 0));
                 view.setScaleX(evaluateFloat(fraction, vx, 1));
@@ -116,7 +119,10 @@ public class ImagePreviewActivity extends Activity implements ViewTreeObserver.O
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                float fraction = animation.getAnimatedFraction();
+                long duration = animation.getDuration();
+                long playTime = animation.getCurrentPlayTime();
+                float fraction = duration > 0 ? (float) playTime / duration : 1f;
+                if (fraction > 1) fraction = 1;
                 view.setTranslationX(evaluateInt(fraction, 0, imageData.imageViewX + imageData.imageViewWidth / 2 - imageView.getWidth() / 2));
                 view.setTranslationY(evaluateInt(fraction, 0, imageData.imageViewY + imageData.imageViewHeight / 2 - imageView.getHeight() / 2));
                 view.setScaleX(evaluateFloat(fraction, 1, vx));
