@@ -108,7 +108,7 @@ public class ImagePreviewAdapter extends PagerAdapter implements PhotoViewAttach
         if (cacheImage == null) cacheImage = NineGridView.getImageLoader().getCacheImage(imageInfo.thumbnailUrl);
         //如果没有任何缓存,使用默认图片,否者使用缓存
         if (cacheImage == null) {
-            imageView.setImageResource(R.drawable.ic_default_image);
+            imageView.setImageResource(R.drawable.ic_default_color);
         } else {
             imageView.setImageBitmap(cacheImage);
         }

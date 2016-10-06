@@ -11,7 +11,7 @@
 
 
 ## 演示
- ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo9.png) ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo10.gif) ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo3.png) ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo14.gif) ![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo12.png)![image](http://7xss53.com2.z0.glb.clouddn.com/ninegridview/demo8.png)
+ ![image](https://github.com/jeasonlzy/Screenshots/blob/master/NineGridView/demo9.png) ![image](https://github.com/jeasonlzy/Screenshots/blob/master/NineGridView/demo10.gif) ![image](https://github.com/jeasonlzy/Screenshots/blob/master/NineGridView/demo3.png) ![image](https://github.com/jeasonlzy/Screenshots/blob/master/NineGridView/demo14.gif) ![image](https://github.com/jeasonlzy/Screenshots/blob/master/NineGridView/demo12.png)![image](https://github.com/jeasonlzy/Screenshots/blob/master/NineGridView/demo8.png)
 
 ## 1.用法
 使用前，对于Android Studio的用户，可以选择添加:

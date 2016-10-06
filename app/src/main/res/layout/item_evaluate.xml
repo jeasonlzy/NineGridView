@@ -18,7 +18,7 @@
             android:id="@+id/avatar"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_default_image"/>
+            android:src="@drawable/ic_default_color"/>
 
         <LinearLayout
             android:layout_width="match_parent"

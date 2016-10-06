@@ -77,8 +77,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         @Override
         public void onDisplayImage(Context context, ImageView imageView, String url) {
             Glide.with(context).load(url)//
-                    .placeholder(R.drawable.ic_default_image)//
-                    .error(R.drawable.ic_default_image)//
+                    .placeholder(R.drawable.ic_default_color)//
+                    .error(R.drawable.ic_default_color)//
                     .diskCacheStrategy(DiskCacheStrategy.ALL)//
                     .into(imageView);
         }
@@ -122,8 +122,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         @Override
         public void onDisplayImage(Context context, ImageView imageView, String url) {
             Picasso.with(context).load(url)//
-                    .placeholder(R.drawable.ic_default_image)//
-                    .error(R.drawable.ic_default_image)//
+                    .placeholder(R.drawable.ic_default_color)//
+                    .error(R.drawable.ic_default_color)//
                     .into(imageView);
         }
 
