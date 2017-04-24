@@ -95,9 +95,7 @@ public class NineGridView extends ViewGroup {
         int childrenCount = mImageInfo.size();
         for (int i = 0; i < childrenCount; i++) {
             ImageView childrenView = (ImageView) getChildAt(i);
-            if (mImageLoader != null) {
-                mImageLoader.onDisplayImage(getContext(), childrenView, mImageInfo.get(i).thumbnailUrl);
-            }
+            
             int rowNum = i / columnCount;
             int columnNum = i % columnCount;
             int left = (gridWidth + gridSpacing) * columnNum + getPaddingLeft();
@@ -105,6 +103,10 @@ public class NineGridView extends ViewGroup {
             int right = left + gridWidth;
             int bottom = top + gridHeight;
             childrenView.layout(left, top, right, bottom);
+            
+            if (mImageLoader != null) {
+                mImageLoader.onDisplayImage(getContext(), childrenView, mImageInfo.get(i).thumbnailUrl);
+            }
         }
     }
 
