@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 
+import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lzy.ninegrid.NineGridView;
@@ -19,6 +20,7 @@ import com.lzy.ninegridview.model.evaluation.EvaluationActivity;
 import com.lzy.ninegridview.model.news.NewsActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
 import org.xutils.x;
 
@@ -75,12 +77,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     /** Glide 加载 */
     private class GlideImageLoader implements NineGridView.ImageLoader {
         @Override
-        public void onDisplayImage(Context context, ImageView imageView, String url) {
-            Glide.with(context).load(url)//
-                    .placeholder(R.drawable.ic_default_color)//
-                    .error(R.drawable.ic_default_color)//
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)//
-                    .into(imageView);
+        public void onDisplayImage(Context context, ImageView imageView, int height, int width, String url) {
+            DrawableRequestBuilder drawableRequestBuilder = Glide.with(context)
+                    .load(url)
+                    .placeholder(R.drawable.ic_default_color)
+                    .error(R.drawable.ic_default_color)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .thumbnail(0.2F)
+                    .dontAnimate();
+            if(height > 0 && width > 0)
+                drawableRequestBuilder.override(width, height);
+            drawableRequestBuilder.into(imageView);
+
         }
 
         @Override
@@ -92,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     /** UniversalImageLoader加载 */
     private class UniversalImageLoader implements NineGridView.ImageLoader {
         @Override
-        public void onDisplayImage(Context context, ImageView imageView, String url) {
+        public void onDisplayImage(Context context, ImageView imageView, int height, int width, String url) {
             ImageLoader.getInstance().displayImage(url, imageView, GApp.imageLoaderOptions);
         }
 
@@ -106,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private class XUtilsImageLoader implements NineGridView.ImageLoader {
 
         @Override
-        public void onDisplayImage(Context context, ImageView imageView, String url) {
+        public void onDisplayImage(Context context, ImageView imageView, int height, int width, String url) {
             x.image().bind(imageView, url, GApp.xUtilsOptions);
         }
 
@@ -118,13 +126,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     /** Picasso 加载 */
     private class PicassoImageLoader implements NineGridView.ImageLoader {
-
         @Override
-        public void onDisplayImage(Context context, ImageView imageView, String url) {
-            Picasso.with(context).load(url)//
+        public void onDisplayImage(Context context, ImageView imageView, int height, int width, String url) {
+            RequestCreator requestCreator = Picasso.with(context).load(url)//
                     .placeholder(R.drawable.ic_default_color)//
-                    .error(R.drawable.ic_default_color)//
-                    .into(imageView);
+                    .error(R.drawable.ic_default_color);
+            if(height >0 && width > 0)
+                    requestCreator.resize(width, height);
+            requestCreator.into(imageView);
         }
 
         @Override
