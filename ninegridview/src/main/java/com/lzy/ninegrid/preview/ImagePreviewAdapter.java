@@ -75,7 +75,7 @@ public class ImagePreviewAdapter extends PagerAdapter implements PhotoViewAttach
         showExcessPic(info, imageView);
 
         //如果需要加载的loading,需要自己改写,不能使用这个方法
-        NineGridView.getImageLoader().onDisplayImage(view.getContext(), imageView, 0, 0, info.bigImageUrl);
+        NineGridView.getImageLoader().onDisplayImage(view.getContext(), imageView, imageView.getHeight(), imageView.getWidth(), info.bigImageUrl);
 
 //        pb.setVisibility(View.VISIBLE);
 //        Glide.with(context).load(info.bigImageUrl)//

@@ -151,7 +151,6 @@ public class NineGridView extends ViewGroup {
             }
         }
 
-        //保证View的复用，避免重复创建
         if (mImageInfo == null) {
             for (int i = 0; i < imageCount; i++) {
                 ImageView iv = getImageView(i);
@@ -188,9 +187,6 @@ public class NineGridView extends ViewGroup {
 
     }
 
-    /**
-     * 获得 ImageView 保证了 ImageView 的重用
-     */
     private ImageView getImageView(final int position) {
         ImageView imageView = mAdapter.generateImageView(getContext());
         imageView.setOnClickListener(new OnClickListener() {
