@@ -62,10 +62,10 @@ public class ImagePreviewActivity extends Activity implements ViewTreeObserver.O
             @Override
             public void onPageSelected(int position) {
                 currentItem = position;
-                tv_pager.setText(String.format(getString(R.string.select), String.valueOf(currentItem + 1), String.valueOf(imageInfo.size())));
+                tv_pager.setText(String.format(getString(R.string.select), currentItem + 1, imageInfo.size()));
             }
         });
-        tv_pager.setText(String.format(getString(R.string.select), String.valueOf(currentItem + 1), String.valueOf(imageInfo.size())));
+        tv_pager.setText(String.format(getString(R.string.select), currentItem + 1, imageInfo.size()));
     }
 
     @Override

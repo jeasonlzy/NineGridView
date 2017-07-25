@@ -102,6 +102,9 @@ public class ImagePreviewAdapter extends PagerAdapter implements PhotoViewAttach
 
     /** 展示过度图片 */
     private void showExcessPic(ImageInfo imageInfo, PhotoView imageView) {
+        //防止地内存回收ImageLoader 导致空指针问题
+        if(NineGridView.getImageLoader() == null)
+            return;
         //先获取大图的缓存图片
         Bitmap cacheImage = NineGridView.getImageLoader().getCacheImage(imageInfo.bigImageUrl);
         //如果大图的缓存不存在,在获取小图的缓存

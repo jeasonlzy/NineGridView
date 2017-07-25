@@ -13,6 +13,8 @@ import android.widget.ImageView;
 
 import java.util.List;
 
+import static android.view.View.MeasureSpec.EXACTLY;
+
 public class NineGridView extends ViewGroup {
 
     public static final int MODE_FILL = 0;          //填充模式，类似于微信
@@ -75,9 +77,13 @@ public class NineGridView extends ViewGroup {
                     gridWidth = (int) (gridWidth * ratio);
                     gridHeight = singleImageSize;
                 }
+                getChildAt(0).measure(EXACTLY + gridWidth, EXACTLY + gridHeight);
             } else {
                 //这里无论是几张图片，宽高都按总宽度的 1/3
                 gridWidth = gridHeight = (totalWidth - gridSpacing * 2) / 3;
+                for (int i = 0; i < mImageInfo.size(); i++) {
+                    getChildAt(i).measure(EXACTLY + gridWidth, EXACTLY + gridHeight);
+                }
             }
             width = gridWidth * columnCount + gridSpacing * (columnCount - 1) + getPaddingLeft() + getPaddingRight();
             height = gridHeight * rowCount + gridSpacing * (rowCount - 1) + getPaddingTop() + getPaddingBottom();
@@ -234,6 +240,8 @@ public class NineGridView extends ViewGroup {
          *
          * @param context   上下文
          * @param imageView 需要展示图片的ImageView
+         * @param height    图片高
+         * @param width     图片宽
          * @param url       图片地址
          */
         void onDisplayImage(Context context, ImageView imageView, int height, int width, String url);
