@@ -7,13 +7,13 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.AppCompatImageView;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
-import android.widget.ImageView;
 
-public class NineGridViewWrapper extends ImageView {
+public class NineGridViewWrapper extends AppCompatImageView {
 
     private int moreNum = 0;              //显示更多的数量
     private int maskColor = 0x88000000;   //默认的遮盖颜色
@@ -93,7 +93,6 @@ public class NineGridViewWrapper extends ImageView {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        setImageDrawable(null);
     }
 
     public int getMoreNum() {
@@ -133,5 +132,10 @@ public class NineGridViewWrapper extends ImageView {
         this.textColor = textColor;
         textPaint.setColor(textColor);
         invalidate();
+    }
+
+    @Override
+    public void requestLayout() {
+        super.requestLayout();
     }
 }
