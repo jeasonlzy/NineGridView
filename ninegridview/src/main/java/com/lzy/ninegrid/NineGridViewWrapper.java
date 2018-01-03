@@ -93,8 +93,18 @@ public class NineGridViewWrapper extends ImageView {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        setImageDrawable(null);
+        //在RecyclerView使用时，View退出屏幕不一定立即被释放，会使用cachedview.所以滑回来就空白了
+        //        if(!usedInRecycleView)
+//            setImageDrawable(null);
     }
+
+
+    /**
+     * RecyclerView的适配器的onViewRecycle 让用户主动调用或...
+     */
+//    public void release(){
+//        setImageDrawable(null);
+//    }
 
     public int getMoreNum() {
         return moreNum;
