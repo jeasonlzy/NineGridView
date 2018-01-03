@@ -104,9 +104,6 @@ public class NineGridView extends ViewGroup {
             int bottom = top + gridHeight;
             childrenView.layout(left, top, right, bottom);
             
-            if (mImageLoader != null) {
-                mImageLoader.onDisplayImage(getContext(), childrenView, mImageInfo.get(i).thumbnailUrl);
-            }
         }
     }
 
