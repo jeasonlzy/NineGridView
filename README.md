@@ -92,7 +92,7 @@
 ```
 ### 2.在自己的Adapter中初始化NineGridView的适配器
  * `ImageInfo`是库中提供的数据Bean，需要两个url，分别表示小图和大图的url，没有大图或者小图，则都赋给相同的Url即可。
- * `ClickNineGridViewAdapter`是库中提供的默认实现了点击预览的Adapter，如果不想使用预览效果，可以自己继承 `NineGridViewAdapter` 实现其中 `onDisplayImage` 方法即可。
+ * `NineGridViewClickAdapter`是库中提供的默认实现了点击预览的Adapter，如果不想使用预览效果，可以自己继承 `NineGridViewAdapter` 实现其中 `onDisplayImage` 方法即可。
 ```java
 	ArrayList<ImageInfo> imageInfo = new ArrayList<>();
     List<EvaluationPic> imageDetails = item.getAttachments();
@@ -104,5 +104,5 @@
             imageInfo.add(info);
         }
     }
-    holder.nineGrid.setAdapter(new ClickNineGridViewAdapter(context, imageInfo));
+    holder.nineGrid.setAdapter(new NineGridViewClickAdapter(context, imageInfo));
 ```
